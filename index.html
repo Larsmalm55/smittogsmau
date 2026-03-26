@@ -1,0 +1,3037 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smitt og Smau – Finn din vei i Bergen</title>
+  <style>
+    :root {
+      /* ── Brand palette ── */
+      --green:       #2F5D50;
+      --green-mid:   #3d7a68;
+      --green-lt:    #d4ede7;
+      --green-xl:    #edf7f4;
+      --sand:        #EAE3D2;
+      --sand-dark:   #d4c9b0;
+      --bluegray:    #4A6A7A;
+      --bluegray-lt: #dce8ee;
+      --bluegray-xl: #f0f5f7;
+      --text:        #1c2b25;
+      --text-mid:    #3d5248;
+      --muted:       #6b7c75;
+      --white:       #ffffff;
+      --bg:          #f6f3ec;
+
+      /* ── Shadows & shape ── */
+      --shadow:    0 2px 14px rgba(47,93,80,.10);
+      --shadow-md: 0 6px 28px rgba(47,93,80,.14);
+      --r:         14px;
+      --r-sm:      8px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 16px;
+    }
+
+    /* ─────────────────────────── HEADER */
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--sand-dark);
+      padding: 0 28px;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 200;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .logo-mark {
+      width: 34px; height: 34px;
+      background: var(--green);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-mark svg { width: 20px; height: 20px; }
+    .logo-text {
+      font-size: 1.15rem; font-weight: 800;
+      color: var(--green); letter-spacing: -.3px;
+    }
+    .logo-text span { color: var(--text); font-weight: 400; font-size: .8rem; display: block; line-height: 1; }
+    nav { display: flex; gap: 24px; align-items: center; }
+    nav a { font-size: .85rem; color: var(--muted); text-decoration: none; transition: color .2s; }
+    nav a:hover { color: var(--green); }
+    .nav-cta {
+      background: var(--green); color: white !important;
+      padding: 7px 16px; border-radius: 50px;
+      font-weight: 600; font-size: .82rem !important;
+      transition: background .2s !important;
+    }
+    .nav-cta:hover { background: var(--green-mid) !important; }
+
+    /* ─────────────────────────── HERO */
+    .hero {
+      background: linear-gradient(145deg, #1e3d32 0%, var(--green) 55%, var(--bluegray) 100%);
+      color: white;
+      padding: 68px 28px 80px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 0 40 Q 20 20 40 40 Q 60 60 80 40' stroke='rgba(255,255,255,0.04)' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") repeat;
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 30px;
+      padding: 5px 16px;
+      font-size: .78rem; font-weight: 600;
+      letter-spacing: .6px; text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2.1rem, 5vw, 3.2rem);
+      font-weight: 900; line-height: 1.12;
+      margin-bottom: 16px;
+    }
+    .hero h1 em { font-style: normal; color: #a8d8ce; }
+    .hero-tag {
+      font-size: 1.05rem; opacity: .82;
+      max-width: 480px; margin: 0 auto 48px;
+    }
+
+    /* Path buttons */
+    .path-row {
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 14px;
+      position: relative; z-index: 1;
+    }
+    .path-btn {
+      background: rgba(255,255,255,.11);
+      border: 2px solid rgba(255,255,255,.28);
+      border-radius: var(--r);
+      color: white; cursor: pointer;
+      padding: 20px 22px; min-width: 185px; text-align: left;
+      transition: background .2s, transform .2s, box-shadow .2s;
+    }
+    .path-btn:hover {
+      background: rgba(255,255,255,.2);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0,0,0,.25);
+    }
+    .path-btn.active {
+      background: white; color: var(--green);
+      border-color: white;
+    }
+    .path-btn .pb-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .path-btn .pb-label { font-size: .95rem; font-weight: 700; display: block; }
+    .path-btn .pb-sub   { font-size: .77rem; opacity: .72; display: block; margin-top: 3px; }
+    .path-btn.active .pb-sub { opacity: .55; }
+
+    /* ─────────────────────────── HURTIGVALG-PILLER */
+    .quick-row {
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;
+      margin-top: 24px; position: relative; z-index: 1;
+    }
+    .quick-pill {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,.10);
+      border: 1.5px solid rgba(255,255,255,.25);
+      border-radius: 50px;
+      color: white; cursor: pointer;
+      padding: 9px 20px;
+      font-size: .85rem; font-weight: 700;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      letter-spacing: .2px;
+    }
+    .quick-pill:hover {
+      background: rgba(255,255,255,.22);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,.2);
+    }
+    .quick-pill .qp-icon { font-size: 1rem; }
+
+    /* UTELIV – modal hero banner */
+    .uteliv-hero {
+      position: relative; overflow: hidden;
+      background: linear-gradient(135deg, #1a0a2e 0%, #3b1f6e 45%, #6b2440 100%);
+      border-radius: var(--r); margin-bottom: 22px;
+      padding: 36px 28px 32px;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .uteliv-hero-glow {
+      position: absolute; top: -40px; left: 50%; transform: translateX(-50%);
+      width: 320px; height: 160px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(160,53,180,.45) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .uteliv-drinks {
+      display: flex; justify-content: center; gap: 14px;
+      margin-bottom: 20px; position: relative;
+    }
+    .ud {
+      font-size: 2rem; display: inline-block;
+      animation: ud-float 3s ease-in-out infinite;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,.4));
+    }
+    .ud1 { animation-delay: 0s; }
+    .ud2 { animation-delay: .4s; }
+    .ud3 { animation-delay: .8s; }
+    .ud4 { animation-delay: 1.2s; }
+    .ud5 { animation-delay: 1.6s; }
+    @keyframes ud-float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-7px); }
+    }
+    .uteliv-hero-content { position: relative; text-align: center; color: white; }
+    .uteliv-hero-eyebrow {
+      font-size: .7rem; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; opacity: .6; margin-bottom: 8px;
+    }
+    .uteliv-hero-title {
+      font-size: 1.7rem; font-weight: 900; letter-spacing: -.5px;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #fff 0%, #e8b4f8 50%, #f9c5d1 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .uteliv-hero-sub {
+      font-size: .87rem; opacity: .78; max-width: 380px;
+      margin: 0 auto 20px; line-height: 1.55;
+    }
+    .uteliv-hero-cta {
+      display: inline-block;
+      background: rgba(255,255,255,.15);
+      border: 1.5px solid rgba(255,255,255,.35);
+      color: white; text-decoration: none;
+      font-size: .82rem; font-weight: 700;
+      padding: 9px 22px; border-radius: 50px;
+      transition: background .2s, border-color .2s;
+    }
+    .uteliv-hero-cta:hover {
+      background: rgba(255,255,255,.28);
+      border-color: rgba(255,255,255,.6);
+    }
+
+    /* UTELIV – fremhevet pill */
+    .quick-pill-uteliv {
+      background: linear-gradient(135deg, #3b1f6e 0%, #6b2fa0 55%, #a0357a 100%);
+      border: 1.5px solid rgba(255,255,255,.45);
+      box-shadow: 0 0 18px rgba(160,53,122,.55), 0 4px 14px rgba(0,0,0,.3);
+      position: relative;
+      overflow: hidden;
+      animation: uteliv-glow 3s ease-in-out infinite alternate;
+    }
+    .quick-pill-uteliv::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.08) 50%, transparent 100%);
+      background-size: 200% 100%;
+      animation: uteliv-shine 2.4s linear infinite;
+    }
+    .quick-pill-uteliv:hover {
+      background: linear-gradient(135deg, #4e2a8e 0%, #7d3bbf 55%, #b83d8c 100%);
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 0 28px rgba(160,53,122,.75), 0 8px 24px rgba(0,0,0,.35);
+    }
+    @keyframes uteliv-glow {
+      from { box-shadow: 0 0 14px rgba(160,53,122,.45), 0 4px 14px rgba(0,0,0,.3); }
+      to   { box-shadow: 0 0 26px rgba(160,53,122,.75), 0 4px 18px rgba(0,0,0,.3); }
+    }
+    @keyframes uteliv-shine {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .quick-label {
+      font-size: .7rem; font-weight: 600; letter-spacing: .8px;
+      text-transform: uppercase; opacity: .55; color: white;
+      margin-top: 20px; position: relative; z-index: 1;
+    }
+
+    /* ─────────────────────────── STEP BAR */
+    .step-bar { background: var(--white); border-bottom: 1px solid var(--sand-dark); }
+    .step-bar-inner {
+      max-width: 860px; margin: 0 auto;
+      padding: 14px 28px;
+      display: flex; align-items: center; gap: 0;
+    }
+    .step-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .8rem; font-weight: 600; color: var(--muted);
+    }
+    .step-item.done   { color: var(--green); }
+    .step-item.active { color: var(--bluegray); }
+    .step-num {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: #dde5e2; color: var(--muted);
+      font-size: .72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .step-item.done  .step-num { background: var(--green); color: white; }
+    .step-item.active .step-num { background: var(--bluegray); color: white; }
+    .step-div { flex: 1; height: 2px; background: #dde5e2; margin: 0 8px; }
+    .step-div.done { background: var(--green); }
+
+    /* ─────────────────────────── WIZARD */
+    .wizard-panel { max-width: 860px; margin: 0 auto; padding: 40px 28px; }
+    .wizard-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; color: var(--text); }
+    .wizard-sub { color: var(--muted); font-size: .9rem; margin-bottom: 28px; }
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .83rem; font-weight: 600; color: var(--muted);
+      background: none; border: none; cursor: pointer; padding: 0; margin-bottom: 22px;
+      transition: color .2s;
+    }
+    .back-btn:hover { color: var(--green); }
+
+    /* Age grid */
+    .age-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); gap: 12px;
+    }
+    .age-btn {
+      background: var(--white); border: 2px solid var(--sand-dark);
+      border-radius: var(--r); padding: 20px 12px; text-align: center;
+      cursor: pointer; box-shadow: var(--shadow);
+      transition: border-color .2s, background .2s, transform .15s;
+    }
+    .age-btn:hover { transform: translateY(-2px); border-color: var(--green); }
+    .age-btn.active { border-color: var(--green); background: var(--green-lt); }
+    .age-btn .ab-icon  { font-size: 1.8rem; margin-bottom: 8px; }
+    .age-btn .ab-range { font-size: .68rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 3px; }
+    .age-btn .ab-label { font-size: .87rem; font-weight: 700; color: var(--text); }
+
+    /* Wizard external link banner */
+    .wizard-link-banner {
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      margin-top: 20px; padding: 14px 20px;
+      background: var(--green-lt); border: 2px solid var(--green);
+      border-radius: var(--r); text-decoration: none;
+      transition: background .2s, transform .15s;
+    }
+    .wizard-link-banner:hover { background: #c8ddd7; transform: translateY(-2px); }
+    .wlb-left { display: flex; align-items: center; gap: 12px; }
+    .wlb-icon  { font-size: 1.4rem; }
+    .wlb-label { font-size: .9rem; font-weight: 700; color: var(--green); }
+    .wlb-sub   { font-size: .78rem; color: var(--muted); margin-top: 1px; }
+    .wlb-arrow { font-size: 1.1rem; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+    /* Need grid */
+    .need-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(188px, 1fr)); gap: 12px;
+    }
+    .need-btn {
+      background: var(--white); border: 2px solid var(--sand-dark);
+      border-radius: var(--r); padding: 20px 18px;
+      cursor: pointer; box-shadow: var(--shadow);
+      display: flex; align-items: flex-start; gap: 12px;
+      transition: border-color .2s, background .2s, transform .15s;
+    }
+    .need-btn:hover { transform: translateY(-2px); border-color: var(--green); }
+    .need-btn.active { border-color: var(--green); background: var(--green-lt); }
+    .need-btn .nb-icon  { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
+    .need-btn .nb-label { font-size: .92rem; font-weight: 700; color: var(--text); }
+    .need-btn .nb-sub   { font-size: .77rem; color: var(--muted); margin-top: 3px; }
+
+    /* ─────────────────────────── RESULTATER */
+    #results-section { background: linear-gradient(180deg, var(--green-xl) 0%, var(--bg) 140px); }
+    .results-header {
+      max-width: 860px; margin: 0 auto;
+      padding: 38px 28px 10px;
+    }
+    .results-header h2 { font-size: 1.4rem; font-weight: 800; color: var(--text); }
+    .results-header p  { color: var(--muted); font-size: .88rem; margin-top: 4px; }
+
+    /* Start-her banner */
+    .start-her-wrap { max-width: 860px; margin: 0 auto; padding: 18px 28px 6px; }
+    .start-her {
+      background: linear-gradient(130deg, #1e3d32, var(--green));
+      border-radius: var(--r); padding: 22px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px; color: white;
+    }
+    .sh-left { display: flex; align-items: center; gap: 14px; }
+    .sh-icon { font-size: 2rem; }
+    .sh-eyebrow { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; opacity: .65; margin-bottom: 3px; }
+    .sh-title { font-size: 1.02rem; font-weight: 700; }
+    .sh-text  { font-size: .82rem; opacity: .78; margin-top: 2px; }
+    .sh-cta {
+      background: white; color: var(--green);
+      font-size: .87rem; font-weight: 700;
+      padding: 11px 22px; border-radius: 50px;
+      text-decoration: none; white-space: nowrap; flex-shrink: 0;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .sh-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.18); }
+
+    /* Cards */
+    .cards-grid {
+      max-width: 860px; margin: 0 auto;
+      padding: 20px 28px 52px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 16px;
+    }
+    .offer-card {
+      background: var(--white); border-radius: var(--r);
+      padding: 22px; box-shadow: var(--shadow);
+      display: flex; flex-direction: column;
+      transition: transform .2s, box-shadow .2s;
+      border: 1.5px solid transparent;
+    }
+    .offer-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--green-lt); }
+    .oc-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: .68rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .6px;
+      padding: 3px 10px; border-radius: 50px;
+      margin-bottom: 12px; width: fit-content;
+    }
+    .b-sosialt { background: var(--green-lt);  color: #1e4d3f; }
+    .b-helse   { background: #fce7f3;           color: #9d174d; }
+    .b-arbeid  { background: #fff3e0;           color: #7c4b00; }
+    .b-fritid  { background: var(--bluegray-lt);color: #2d4f5e; }
+    .b-okonomi { background: var(--sand);        color: #5a4a2a; }
+    .b-kultur  { background: #fdf3e3;           color: #7a4f10; }
+    .b-nattliv { background: #ede9f6;           color: #4a2d7a; }
+    .oc-title { font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+    .oc-desc  { font-size: .84rem; color: var(--muted); line-height: 1.57; margin-bottom: 14px; flex: 1; }
+    .oc-meta  { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .oc-tag   { font-size: .73rem; padding: 3px 9px; border-radius: 20px; background: var(--bg); color: var(--muted); }
+    .oc-tag.gratis { background: var(--green-lt); color: #1e4d3f; font-weight: 700; }
+    .oc-tag.lavt   { background: var(--bluegray-lt); color: #2d4f5e; }
+    .oc-where { font-size: .76rem; color: var(--muted); display: flex; align-items: center; gap: 4px; margin-bottom: 14px; }
+    .oc-cta {
+      display: block; text-align: center;
+      background: var(--green); color: white;
+      font-size: .84rem; font-weight: 700;
+      padding: 10px 16px; border-radius: 50px;
+      text-decoration: none;
+      transition: background .2s, transform .15s;
+      margin-top: auto;
+    }
+    .oc-cta:hover { background: var(--green-mid); transform: translateY(-1px); }
+    .oc-cta.outline {
+      background: none; color: var(--green);
+      border: 2px solid var(--green);
+    }
+    .oc-cta.outline:hover { background: var(--green-lt); }
+    .oc-cta.blue-cta { background: var(--bluegray); }
+    .oc-cta.blue-cta:hover { background: #3a5868; }
+
+    /* ─────────────────────────── SMAU-FUNN (signature) */
+    .smau-section {
+      background: var(--green);
+      color: white;
+    }
+    .smau-inner {
+      max-width: 860px; margin: 0 auto;
+      padding: 52px 28px;
+    }
+    .smau-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px; margin-bottom: 30px;
+    }
+    .smau-badge {
+      display: inline-block;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 30px; padding: 4px 14px;
+      font-size: .72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .7px;
+      margin-bottom: 10px;
+    }
+    .smau-header h2 { font-size: 1.5rem; font-weight: 900; line-height: 1.15; }
+    .smau-header p  { font-size: .88rem; opacity: .75; margin-top: 6px; max-width: 440px; }
+    .smau-seeall {
+      font-size: .83rem; font-weight: 700;
+      color: rgba(255,255,255,.7); text-decoration: none;
+      white-space: nowrap; align-self: flex-end;
+      transition: color .2s;
+    }
+    .smau-seeall:hover { color: white; }
+
+    .smau-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .smau-card {
+      background: rgba(255,255,255,.09);
+      border: 1.5px solid rgba(255,255,255,.16);
+      border-radius: var(--r); padding: 20px;
+      transition: background .2s, transform .2s;
+      cursor: pointer;
+    }
+    .smau-card:hover {
+      background: rgba(255,255,255,.16);
+      transform: translateY(-2px);
+    }
+    .smau-card .sc-eye {
+      font-size: .65rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .7px;
+      opacity: .6; margin-bottom: 8px;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .smau-card .sc-eye::before { content: '👁'; font-size: .8rem; }
+    .smau-card h3 { font-size: .95rem; font-weight: 700; margin-bottom: 6px; }
+    .smau-card p  { font-size: .81rem; opacity: .75; line-height: 1.5; margin-bottom: 14px; }
+    .smau-card .sc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .smau-card .sc-tag {
+      font-size: .7rem; padding: 2px 9px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.12);
+      color: rgba(255,255,255,.85);
+    }
+    .smau-card .sc-where { font-size: .76rem; opacity: .65; display: flex; align-items: center; gap: 4px; }
+    .smau-card a {
+      display: inline-block; margin-top: 12px;
+      font-size: .81rem; font-weight: 700;
+      color: rgba(255,255,255,.9); text-decoration: none;
+    }
+    .smau-card a:hover { color: white; text-decoration: underline; }
+    .smau-card .sc-modal-btn {
+      display: inline-block; margin-top: 12px;
+      font-size: .81rem; font-weight: 700;
+      color: rgba(255,255,255,.9); background: none;
+      border: none; cursor: pointer; padding: 0;
+      font-family: inherit;
+    }
+    .smau-card .sc-modal-btn:hover { color: white; text-decoration: underline; }
+
+    /* Skjult kort (filtrert bort) */
+    .smau-card.hidden-card {
+      display: none;
+    }
+
+    /* ─────────────────────────── SMAU FILTER PILLS */
+    .smau-filters {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 24px;
+    }
+    .smau-filter {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,.10);
+      border: 1.5px solid rgba(255,255,255,.2);
+      border-radius: 50px; color: rgba(255,255,255,.75);
+      font-size: .78rem; font-weight: 700;
+      padding: 7px 16px; cursor: pointer;
+      transition: background .18s, border-color .18s, color .18s;
+      letter-spacing: .2px;
+    }
+    .smau-filter:hover {
+      background: rgba(255,255,255,.18);
+      color: white;
+    }
+    .smau-filter.active {
+      background: white;
+      border-color: white;
+      color: var(--green);
+    }
+
+    /* ─────────────────────────── I DAG */
+    .today-wrap { background: var(--white); border-top: 1px solid var(--sand-dark); }
+    .today-inner { max-width: 860px; margin: 0 auto; padding: 48px 28px; }
+    .today-top { display: flex; align-items: baseline; gap: 12px; margin-bottom: 26px; flex-wrap: wrap; }
+    .today-top h2 { font-size: 1.3rem; font-weight: 800; }
+    .date-chip {
+      font-size: .77rem; font-weight: 600;
+      background: var(--green-lt); color: var(--green);
+      padding: 3px 13px; border-radius: 30px;
+    }
+    .events-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 14px; }
+    .ev {
+      border: 1.5px solid var(--sand-dark); border-radius: var(--r-sm);
+      padding: 16px; transition: border-color .2s;
+    }
+    .ev:hover { border-color: var(--green); }
+    .ev-time { font-size: .73rem; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 5px; }
+    .ev h4   { font-size: .9rem; font-weight: 700; margin-bottom: 4px; }
+    .ev p    { font-size: .79rem; color: var(--muted); }
+    .ev-loc  { font-size: .76rem; color: var(--muted); margin-top: 9px; display: flex; align-items: center; gap: 4px; }
+    .ev-free { display: inline-block; font-size: .66rem; font-weight: 700; background: var(--green-lt); color: var(--green); padding: 1px 7px; border-radius: 10px; margin-left: 6px; vertical-align: middle; }
+
+    /* ─────────────────────────── FEED SOURCE ROW */
+    .feed-source-row {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 20px; flex-wrap: wrap;
+    }
+    .feed-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #fde8e8; color: #c0392b;
+      font-size: .7rem; font-weight: 700;
+      padding: 3px 10px; border-radius: 30px;
+      letter-spacing: .3px;
+    }
+    .feed-badge::before {
+      content: ''; display: inline-block;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #e74c3c;
+      animation: pulse-dot 1.6s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(.7); }
+    }
+    .feed-label { font-size: .8rem; color: var(--muted); }
+    .feed-more  { margin-left: auto; font-size: .79rem; font-weight: 600; color: var(--green); text-decoration: none; }
+    .feed-more:hover { text-decoration: underline; }
+
+    /* Skeleton loader */
+    .ev-skel { border: 1.5px solid var(--sand-dark); border-radius: var(--r-sm); padding: 16px; }
+    .ev-skel-line {
+      background: linear-gradient(90deg, #e8e3d8 25%, #f0ece3 50%, #e8e3d8 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 6px; height: 13px; margin-bottom: 8px;
+    }
+    .ev-skel-line.tall { height: 18px; margin-bottom: 12px; }
+    .ev-skel-line.short { width: 55%; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    /* Article cards */
+    .ev-title-link { color: var(--text); text-decoration: none; }
+    .ev-title-link:hover { color: var(--green); text-decoration: underline; }
+    .ev-source { font-size: .73rem; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 5px; }
+
+    /* Fallback card */
+    .ev-fallback { border: 1.5px dashed var(--sand-dark); border-radius: var(--r-sm); padding: 20px; }
+    .ev-fallback h4 { font-size: .92rem; font-weight: 700; margin-bottom: 6px; }
+    .ev-fallback p  { font-size: .8rem; color: var(--muted); margin-bottom: 12px; }
+    .ev-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .ev-links a {
+      font-size: .8rem; font-weight: 700; color: var(--green);
+      text-decoration: none; padding: 5px 14px;
+      border: 1.5px solid var(--green-lt); border-radius: 30px;
+      transition: background .2s;
+    }
+    .ev-links a:hover { background: var(--green-lt); }
+
+    /* ─────────────────────────── INFO */
+    .info-grid {
+      max-width: 860px; margin: 0 auto;
+      padding: 48px 28px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(245px, 1fr)); gap: 18px;
+    }
+    .ib { border-radius: var(--r); padding: 28px; }
+    .ib.g { background: var(--green-lt); }
+    .ib.b { background: var(--bluegray-lt); }
+    .ib.s { background: var(--sand); }
+    .ib-icon { font-size: 1.8rem; margin-bottom: 12px; }
+    .ib h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .ib p  { font-size: .84rem; color: var(--text-mid); line-height: 1.57; }
+    .ib a  { display: inline-block; margin-top: 12px; font-size: .82rem; font-weight: 700; color: var(--green); text-decoration: none; }
+    .ib.b a { color: var(--bluegray); }
+    .ib.s a { color: #7c5a1a; }
+
+    /* ─────────────────────────── FOOTER */
+    footer {
+      background: #141f1b;
+      color: rgba(255,255,255,.5);
+      padding: 44px 28px;
+      text-align: center;
+    }
+    .footer-logo { font-size: 1.15rem; font-weight: 800; color: white; margin-bottom: 6px; }
+    .footer-logo span { color: rgba(255,255,255,.45); font-weight: 400; font-size: .85rem; display: block; margin-top: 2px; }
+    footer p { font-size: .8rem; }
+    .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin-top: 22px; }
+    .footer-links a { color: rgba(255,255,255,.4); text-decoration: none; font-size: .8rem; transition: color .2s; }
+    .footer-links a:hover { color: white; }
+
+    /* ─────────────────────────── UTILS */
+    .hidden { display: none !important; }
+    .fade-in { animation: fadeUp .35s ease both; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    hr.divider { border: none; border-top: 1px solid var(--sand-dark); margin: 0; }
+
+    /* ─────────────────────────── MODAL */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,.55); backdrop-filter: blur(3px);
+      align-items: flex-end; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--white); border-radius: 20px 20px 0 0;
+      width: 100%; max-width: 680px; max-height: 88vh;
+      overflow-y: auto; padding: 32px 28px 40px;
+      animation: slideUp .28s ease;
+    }
+    @keyframes slideUp { from { transform: translateY(60px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+    .modal-header {
+      display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 22px;
+    }
+    .modal-title { font-size: 1.25rem; font-weight: 800; color: var(--text); }
+    .modal-sub   { font-size: .84rem; color: var(--muted); margin-top: 3px; }
+    .modal-close {
+      background: var(--bg); border: none; border-radius: 50%;
+      width: 34px; height: 34px; font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      margin-left: 12px; color: var(--muted);
+    }
+    .modal-close:hover { background: var(--sand-dark); }
+    .modal-section-label {
+      font-size: .7rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--muted); margin: 20px 0 10px;
+    }
+    .modal-venue {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 14px 0; border-bottom: 1px solid var(--sand-dark);
+    }
+    .modal-venue:last-child { border-bottom: none; }
+    .mv-badge {
+      font-size: .66rem; font-weight: 800; padding: 3px 9px; border-radius: 20px;
+      white-space: nowrap; flex-shrink: 0; margin-top: 2px;
+    }
+    .mv-body { flex: 1; }
+    .mv-title { font-size: .95rem; font-weight: 700; color: var(--text); }
+    .mv-desc  { font-size: .8rem; color: var(--muted); margin-top: 2px; line-height: 1.45; }
+    .mv-where { font-size: .74rem; color: var(--muted); margin-top: 5px; }
+    .mv-link  {
+      font-size: .78rem; font-weight: 700; color: var(--green);
+      text-decoration: none; margin-top: 5px; display: inline-block;
+    }
+    .mv-link:hover { text-decoration: underline; }
+    .modal-tips {
+      background: var(--green-lt); border-radius: var(--r);
+      padding: 14px 16px; margin-top: 20px;
+    }
+    .modal-tips-title { font-size: .85rem; font-weight: 800; color: var(--green); margin-bottom: 6px; }
+    .modal-tips ul { margin: 0; padding-left: 18px; }
+    .modal-tips li { font-size: .8rem; color: var(--text); margin-bottom: 4px; line-height: 1.45; }
+
+    /* ═══════════════════════════════════════
+       MOBIL  (≤ 600px)
+       Alle regler her er additive – berører
+       ikke Mac/desktop-layout overhodet.
+       ═══════════════════════════════════════ */
+    @media (max-width: 600px) {
+
+      /* ── Nav ── */
+      nav .hide-mobile { display: none; }
+      .nav-cta { padding: 6px 12px; font-size: .78rem !important; }
+
+      /* ── Scroll-offset: unngå at sticky header dekker wizard ── */
+      #step2-panel, #results-section { scroll-margin-top: 68px; }
+
+      /* ── Hero ── */
+      .hero { padding: 44px 18px 56px; }
+      .hero h1 { font-size: 2rem; }
+      .hero-tag { font-size: .95rem; margin-bottom: 32px; }
+
+      /* Path-knapper: 2 i bredden */
+      .path-row { gap: 10px; }
+      .path-btn {
+        min-width: 0; flex: 1 1 44%;
+        padding: 16px 12px;
+      }
+      .path-btn .pb-icon { font-size: 1.5rem; margin-bottom: 7px; }
+      .path-btn .pb-label { font-size: .88rem; }
+
+      /* Quick-pills: god touchflate */
+      .quick-row { gap: 7px; }
+      .quick-pill {
+        padding: 10px 15px;
+        font-size: .8rem;
+        min-height: 44px; /* Apple/Android anbefalt */
+      }
+
+      /* ── Wizard / kort ── */
+      .wizard-panel, .cards-grid, .smau-inner,
+      .today-inner, .info-grid,
+      .results-header, .start-her-wrap { padding-left: 16px; padding-right: 16px; }
+      .cards-grid { padding-bottom: 36px; }
+
+      /* ── Filterpiller – "Det skjulte Bergen" ── */
+      .smau-filters { gap: 7px; }
+      .smau-filter {
+        padding: 9px 14px;
+        font-size: .76rem;
+        min-height: 42px;
+      }
+
+      /* ── Modaler: bunnark i stedet for sentrert boks ── */
+      .modal-overlay {
+        align-items: flex-end;
+        padding: 0;
+      }
+      .modal-box {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 20px 20px 0 0;
+        max-height: 88dvh;      /* dynamisk vh – respekterer tastatur */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 22px 16px 48px; /* ekstra bunn: hjemknapp-sone */
+      }
+      /* Liten gripehåndtak-indikator øverst */
+      .modal-box::before {
+        content: '';
+        display: block;
+        width: 40px; height: 4px;
+        background: var(--sand-dark);
+        border-radius: 4px;
+        margin: 0 auto 18px;
+      }
+      .modal-header { margin-bottom: 16px; }
+      .modal-title  { font-size: 1.1rem; }
+
+      /* ── I dag i Bergen: én kolonne ── */
+      .events-row { grid-template-columns: 1fr; }
+
+      /* ── Info-bokser ── */
+      .info-grid { padding-top: 32px; padding-bottom: 32px; }
+
+      /* ── Uteliv-hero ── */
+      .ud { font-size: 1.6rem; }
+      .uteliv-hero-title { font-size: 1.3rem; }
+      .uteliv-hero { padding: 28px 18px 26px; }
+
+      /* ── Footer ── */
+      footer { padding: 32px 18px; }
+    }
+
+    /* ── Ekstra smal (≤ 380px, f.eks. iPhone SE) ── */
+    @media (max-width: 380px) {
+      .path-btn { flex: 1 1 100%; } /* én kolonne */
+      .quick-pill { padding: 9px 12px; font-size: .76rem; }
+      .hero h1 { font-size: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════ HEADER -->
+<header>
+  <a class="logo" href="#">
+    <div class="logo-mark">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 15 Q6 5 10 10 Q14 15 17 5" stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        <circle cx="17" cy="5" r="2" fill="white"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      Smitt og Smau
+      <span>Bergen</span>
+    </div>
+  </a>
+  <nav>
+    <a href="#smau-funn" class="hide-mobile">Smau-funn</a>
+    <a href="#idagbergen" class="hide-mobile">I dag</a>
+    <a href="#omoss" class="hide-mobile">Om oss</a>
+    <a href="mailto:hei@smittogsmau.no" class="nav-cta">Meld inn tilbud</a>
+  </nav>
+</header>
+
+
+<!-- ══════════════════════════ HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">📍 Bergen · Lokalt · For alle</div>
+  <h1>Finn din vei<br><em>gjennom byen</em></h1>
+  <p class="hero-tag">Velg din vei – vi viser deg det som faktisk finnes, nær deg, akkurat nå.</p>
+
+  <div class="path-row">
+    <button class="path-btn" data-path="aktivitet" onclick="choosePath(this)">
+      <div class="pb-icon">🗺️</div>
+      <span class="pb-label">Finn noe å gjøre</span>
+      <span class="pb-sub">Aktivitet, kultur, sosialt</span>
+    </button>
+    <button class="path-btn" data-path="hjelp" onclick="choosePath(this)">
+      <div class="pb-icon">🤝</div>
+      <span class="pb-label">Jeg trenger hjelp / retning</span>
+      <span class="pb-sub">Jobb, økonomi, helse, kontakt</span>
+    </button>
+    <button class="path-btn" data-path="alder" onclick="choosePath(this)">
+      <div class="pb-icon">👤</div>
+      <span class="pb-label">Se etter alder</span>
+      <span class="pb-sub">Tilbud tilpasset din livsfase</span>
+    </button>
+    <button class="path-btn" data-path="ny-i-byen" onclick="choosePath(this)">
+      <div class="pb-icon">🧭</div>
+      <span class="pb-label">Ny i Bergen</span>
+      <span class="pb-sub">Bli kjent, finne jobb, møte folk</span>
+    </button>
+  </div>
+
+  <p class="quick-label">Utforsk Bergen</p>
+  <div class="quick-row">
+    <button class="quick-pill" onclick="openModal('mat')">
+      <span class="qp-icon">🍽️</span> MAT
+    </button>
+    <button class="quick-pill" onclick="openModal('drikke')">
+      <span class="qp-icon">🍺</span> DRIKKE
+    </button>
+    <button class="quick-pill" onclick="openModal('musikk')">
+      <span class="qp-icon">🎵</span> MUSIKK
+    </button>
+    <button class="quick-pill" onclick="openModal('kultur')">
+      <span class="qp-icon">🎭</span> KULTUR
+    </button>
+    <button class="quick-pill quick-pill-uteliv" onclick="openModal('uteliv')">
+      <span class="qp-icon">🌙</span> UTELIV
+    </button>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════ STEP BAR -->
+<div class="step-bar hidden" id="step-bar">
+  <div class="step-bar-inner">
+    <div class="step-item" id="sb1">
+      <div class="step-num" id="sn1">1</div>
+      <span>Velg din vei</span>
+    </div>
+    <div class="step-div" id="sd1"></div>
+    <div class="step-item" id="sb2">
+      <div class="step-num" id="sn2">2</div>
+      <span id="sb2-label">Hvem er du?</span>
+    </div>
+    <div class="step-div" id="sd2"></div>
+    <div class="step-item" id="sb3">
+      <div class="step-num" id="sn3">3</div>
+      <span>Utforsk smau</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════ WIZARD STEG 2 -->
+<div id="step2-panel" class="hidden">
+  <div class="wizard-panel">
+    <button class="back-btn" onclick="goBack()">← Tilbake</button>
+    <div id="step2-content"></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════ RESULTATER -->
+<div id="results-section" class="hidden">
+  <div class="results-header fade-in">
+    <h2 id="results-title">Din vei i Bergen</h2>
+    <p id="results-desc"></p>
+  </div>
+
+  <div class="start-her-wrap hidden" id="start-her-banner">
+    <div class="start-her fade-in">
+      <div class="sh-left">
+        <div class="sh-icon">👋</div>
+        <div>
+          <div class="sh-eyebrow">Start her</div>
+          <div class="sh-title" id="sh-title">Første konkrete steg</div>
+          <div class="sh-text"  id="sh-text">Ingen lange søknader.</div>
+        </div>
+      </div>
+      <a href="#" class="sh-cta" id="sh-cta-btn">Ta første steg →</a>
+    </div>
+  </div>
+
+  <div class="cards-grid fade-in" id="cards-grid"></div>
+</div>
+
+
+<!-- ══════════════════════════ SMAU-FUNN (signature) -->
+<section class="smau-section" id="smau-funn">
+  <div class="smau-inner">
+    <div class="smau-header">
+      <div>
+        <div class="smau-badge">✦ Smau du ikke visste om</div>
+        <h2>Det skjulte Bergen</h2>
+        <p>Lite kjente tilbud, gratis møteplasser og lokale initiativ som sjelden dukker opp i søk.</p>
+      </div>
+    </div>
+
+    <!-- Kategorifilter -->
+    <div class="smau-filters" id="smau-filters">
+      <button class="smau-filter" data-filter="alle">Alle</button>
+      <button class="smau-filter" data-filter="natur">🌿 Natur &amp; Friluft</button>
+      <button class="smau-filter" data-filter="mat">🍽️ Mat &amp; Drikke</button>
+      <button class="smau-filter" data-filter="kreativitet">🎨 Kreativitet</button>
+      <button class="smau-filter" data-filter="sosialt">🤝 Sosialt &amp; Hjelp</button>
+    </div>
+
+    <div class="smau-grid" id="smau-grid">
+
+      <div class="smau-card hidden-card" data-cat="natur">
+        <div class="sc-eye">Sommer 2026</div>
+        <h3>🌊 Gratis utebad &amp; badeplasser</h3>
+        <p>9 gratis sjøbad og badeplasser rundt Bergen – fra bynære til rolige perler lenger ute. Åpne for alle, ingen badevakt.</p>
+        <div class="sc-tags">
+          <span class="sc-tag">Gratis</span>
+          <span class="sc-tag">Sommer</span>
+          <span class="sc-tag">Familie</span>
+          <span class="sc-tag">9 steder</span>
+        </div>
+        <div class="sc-where">📍 Hele Bergen – sjø og ferskvann</div>
+        <button class="sc-modal-btn" onclick="openModal('badeplasser')">Se alle badeplasser →</button>
+      </div>
+
+      <div class="smau-card hidden-card" data-cat="natur">
+        <div class="sc-eye">Lite kjent</div>
+        <h3>🌱 Hagelag – byens skjulte grønne rom</h3>
+        <p>Nabohagelaget i Møllendal og Nygårdsparken lar hvem som helst jobbe i hagen mot å delta i dugnad.</p>
+        <div class="sc-tags">
+          <span class="sc-tag">Gratis</span>
+          <span class="sc-tag">Sosialt</span>
+          <span class="sc-tag">Natur</span>
+        </div>
+        <div class="sc-where">📍 Nygårdsparken og Møllendal</div>
+        <a href="https://www.lystgarden.no/" target="_blank" rel="noopener">Besøk lystgarden.no →</a>
+      </div>
+
+      <div class="smau-card hidden-card" data-cat="mat">
+        <div class="sc-eye">⭐ Michelin 2025</div>
+        <h3>🍽️ Gaptrast – Bergens skjulte restaurant</h3>
+        <p>Hemmelig og intim matopplevelse med fast meny på 22 retter og kun 26 plasser. Råvarer rett fra Vestlandets fiskere, bønder og jegere – servert rundt åpen kullgrill.</p>
+        <div class="sc-tags">
+          <span class="sc-tag">Michelin-stjerne</span>
+          <span class="sc-tag">22 retter</span>
+          <span class="sc-tag">Max 26 gjester</span>
+        </div>
+        <div class="sc-where">📍 Baneveien 16, Bergen</div>
+        <a href="https://www.gaptrast.no" target="_blank" rel="noopener">Besøk gaptrast.no →</a>
+      </div>
+
+      <div class="smau-card hidden-card" data-cat="kreativitet">
+        <div class="sc-eye">Lite kjent</div>
+        <h3>🧵 Reparasjonskafé &amp; Symaskin – Biblioteket</h3>
+        <p>Bergen bibliotek låner ut symaskiner og arrangerer reparasjonskafé for klær og tekstiler. Gratis, ingen påmelding. Frivillige hjelper deg å reparere det du har.</p>
+        <div class="sc-tags">
+          <span class="sc-tag">Gratis</span>
+          <span class="sc-tag">Drop-in</span>
+          <span class="sc-tag">Bærekraft</span>
+          <span class="sc-tag">Symaskin</span>
+        </div>
+        <div class="sc-where">📍 Bergen bibliotek, Strømgaten 6</div>
+        <a href="https://bergenbibliotek.no/laering/utstyr-i-baerekraftslaben/symaskin" target="_blank" rel="noopener">Se tilbud på biblioteket →</a>
+      </div>
+
+      <div class="smau-card hidden-card" data-cat="kreativitet">
+        <div class="sc-eye">Lite kjent</div>
+        <h3>🎶 Åpen øvingssal – Kulturhuset i Bergen</h3>
+        <p>Lavterskel, selvorganisert øving i et profesjonelt kulturrom. Drop-in med trommer, perkusjon og åpen gulvflate – for musikere, dansere og kreative.</p>
+        <div class="sc-tags">
+          <span class="sc-tag">Gratis</span>
+          <span class="sc-tag">Drop-in</span>
+          <span class="sc-tag">Musikk</span>
+          <span class="sc-tag">Dans</span>
+        </div>
+        <div class="sc-where">📍 Kulturhuset Bergen, Vaskerelven 8</div>
+        <button class="sc-modal-btn" onclick="openModal('ovingssal')">Les mer og praktiske tips →</button>
+      </div>
+
+      <div class="smau-card hidden-card" data-cat="sosialt">
+        <div class="sc-eye">Lite kjent</div>
+        <h3>💬 Lavterskel språkkafé – ukentlig</h3>
+        <p>Øv norsk (eller engelsk) i en uformell kafésetting. Alle nivåer. Arrangert av frivillige.</p>
+        <div class="sc-tags">
+          <span class="sc-tag">Gratis</span>
+          <span class="sc-tag">Ukentlig</span>
+          <span class="sc-tag">Ny i Bergen</span>
+        </div>
+        <div class="sc-where">📍 Bergen bibliotek · Onsdager kl 17</div>
+        <a href="https://www4.uib.no/for-studenter/livet-som-student/sprakkafe" target="_blank" rel="noopener">Se tidspunkt på uib.no →</a>
+      </div>
+
+      <div class="smau-card hidden-card" data-cat="sosialt">
+        <div class="sc-eye">Åpent for alle</div>
+        <h3>🏠 Huset Bergen – en plass å være seg selv</h3>
+        <p>Brukerstyrt møteplass og sosial arena i Bergen. Ingen krav, ingen spørsmål. Et sted for tilhørighet, samhold og hverdagsliv – åpent for alle som trenger et sted å høre til.</p>
+        <div class="sc-tags">
+          <span class="sc-tag">Gratis</span>
+          <span class="sc-tag">Lavterskel</span>
+          <span class="sc-tag">Drop-in</span>
+          <span class="sc-tag">Brukerstyrt</span>
+        </div>
+        <div class="sc-where">📍 Bergen sentrum</div>
+        <a href="https://husetbergen.no/om-oss/" target="_blank" rel="noopener">Les om Huset Bergen →</a>
+      </div>
+
+    </div>
+
+    <!-- Hint når ingenting er valgt -->
+    <div id="smau-hint" style="text-align:center; padding:32px 0; opacity:.5; font-size:.88rem; pointer-events:none;">
+      ↑ Velg en kategori for å utforske skjulte tilbud
+    </div>
+    <div id="smau-count" style="margin-top:12px; font-size:.75rem; opacity:.5; text-align:right;"></div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════ I DAG I BERGEN -->
+<hr class="divider">
+<section class="today-wrap" id="idagbergen">
+  <div class="today-inner">
+    <div class="today-top">
+      <h2>📍 I dag i Bergen</h2>
+      <span class="date-chip" id="today-date-chip">…</span>
+    </div>
+    <div class="feed-source-row">
+      <span class="feed-badge">Live</span>
+      <span class="feed-label">Siste fra Bergens Tidende</span>
+      <a href="https://www.bt.no" target="_blank" rel="noopener" class="feed-more">Se alle nyheter ↗</a>
+    </div>
+    <div class="events-row" id="today-feed">
+      <!-- Fylles dynamisk av JS -->
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════ INFO-BOKSER -->
+<div class="info-grid" id="omoss">
+  <div class="ib g">
+    <div class="ib-icon">🗺️</div>
+    <h3>Hva er Smitt og Smau?</h3>
+    <p>En uavhengig livsfase-navigator for Bergen. Vi kobler deg med tilbud som finnes – men som ingen forteller deg om. Ikke en kommunal tjeneste.</p>
+    <a href="#">Les mer om oss →</a>
+  </div>
+  <div class="ib b">
+    <div class="ib-icon">🤝</div>
+    <h3>Frivillige organisasjoner</h3>
+    <p>Røde Kors, Kirkens Bymisjon og mange andre har lavterskel møteplasser daglig i Bergen. Vi samler dem.</p>
+    <a href="#">Se oversikt →</a>
+  </div>
+  <div class="ib s">
+    <div class="ib-icon">📞</div>
+    <h3>Trenger du noen å snakke med?</h3>
+    <p>Mental Helse: <strong>116 123</strong> – alltid åpent, gratis, anonymt. Eller finn lavterskel-samtale nær deg.</p>
+    <a href="#">Finn samtale-tilbud →</a>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════ FOOTER -->
+<footer>
+  <div class="footer-logo">
+    Smitt og Smau
+    <span>Din vei gjennom Bergen</span>
+  </div>
+  <p>Små veier. Nye muligheter.</p>
+  <div class="footer-links">
+    <a href="#">Om portalen</a>
+    <a href="#">Meld inn et tilbud</a>
+    <a href="#">For organisasjoner</a>
+    <a href="#">Personvern</a>
+    <a href="mailto:hei@smittogsmau.no">hei@smittogsmau.no</a>
+  </div>
+</footer>
+
+
+<!-- ══════════════════════════ JS -->
+<script>
+// ── DATA ──────────────────────────────────────────────────
+const DATA = {
+  aktivitet: {
+    "møte-folk": {
+      startHer: { title:"Kafé og samvær – Frivilligsentralen", text:"Ingen påmelding. Bare møt opp kl 10:00, hverdager.", cta:"Se adresse og kart →" },
+      cards: [
+        { badge:"b-sosialt", cat:"Sosialt", title:"Kafé og prat – Frivilligsentralen", desc:"Gratis kaffe og sosialt samvær nær der du bor. Drop-in – bare møt opp.", tags:["gratis","lavt"], where:"📍 Nygårdsgaten 5 · Hverdager 10–13", cta:"Se åpningstider →" },
+        { badge:"b-fritid",  cat:"Tur",     title:"Turlag Bergen – dagturer", desc:"Organiserte turer for alle nivåer. Vennlig og uformelt miljø.", tags:["lavt","alle nivåer"], where:"📍 Møteplass varierer", cta:"Se turprogram →" },
+        { badge:"b-sosialt", cat:"Sosialt", title:"Bergen bibliotek – møteplass", desc:"Gratis arrangement og sosialt samvær. Undervurdert møteplass i hjertet av Bergen.", tags:["gratis"], where:"📍 Strømgaten 6 · Man–fre 9–20", cta:"Se program →" },
+        { badge:"b-fritid",  cat:"Sosialt", title:"Bergen Internasjonale møteplass", desc:"For alle som er nye i Bergen – norske og internasjonale. Åpent og uformelt.", tags:["åpent for alle"], where:"📍 Diverse steder i Bergen", cta:"Se arrangement →" },
+      ]
+    },
+    "aktivitet-og-trening": {
+      startHer: null,
+      cards: [
+        { badge:"b-fritid", cat:"Fritid", title:"Kommunale trimgrupper", desc:"Organisert trim til subsidiert pris i alle bydeler. Alle nivåer velkommen.", tags:["subsidiert","alle nivåer"], where:"📍 Alle bydeler", cta:"Se grupper nær deg →" },
+        { badge:"b-fritid", cat:"Natur",  title:"Yoga i Nygårdsparken", desc:"Gratis drop-in yoga i parken. Ingen utstyr nødvendig, bare møt opp.", tags:["gratis","drop-in"], where:"📍 Nygårdsparken · Hverdager kl 17", cta:"Se tidspunkter →" },
+        { badge:"b-helse",  cat:"Helse",  title:"Frisklivssentralen Bergen", desc:"Gratis tilbud for å komme i gang. Ingen krav til form eller alder.", tags:["gratis","kommunalt"], where:"📍 Solheimsgaten 9", cta:"Kom i gang →", ctaStyle:"" },
+        { badge:"b-fritid", cat:"55+",    title:"SeniAktiv Bergen", desc:"Padel, klatring, dans og mer for aktive seniorer over 55.", tags:["subsidiert","55+"], where:"📍 Diverse anlegg i Bergen", cta:"Se aktiviteter →" },
+      ]
+    },
+    "kultur-og-opplevelse": {
+      startHer: null,
+      cards: [
+        { badge:"b-fritid", cat:"Kultur", title:"KODE – gratis inngangsdager", desc:"Bergen kunstmuseums samlinger gratis på utvalgte dager. Sjekk ukentlig program.", tags:["gratis (noen dager)"], where:"📍 Rasmus Meyers allé 3–7", cta:"Se program →" },
+        { badge:"b-fritid", cat:"Kultur", title:"Bergen bibliotek – arrangement", desc:"Gratis arrangementer, utstillinger og debatter for alle aldersgrupper.", tags:["gratis"], where:"📍 Strømgaten 6", cta:"Se ukens program →" },
+        { badge:"b-fritid", cat:"Ungdom", title:"Ungdomsklubber i Bergen", desc:"Musikk, spill og kreative aktiviteter i kommunale ungdomsklubber i alle bydeler.", tags:["gratis","15–25"], where:"📍 Alle bydeler", cta:"Finn din klubb →" },
+        { badge:"b-sosialt", cat:"Musikk", title:"Kulturhuset Bergen", desc:"Konserter, kurs, teater og sosialt i uformelt miljø.", tags:["varierende pris"], where:"📍 Vaskerelven 8", cta:"Se program →" },
+      ]
+    }
+  },
+
+  hjelp: {
+    "jobb-skole": {
+      startHer: { title:"NAV Bergen – gratis veiledning, ingen venteliste", text:"Ring eller møt opp. Ingen stigma – de er der for å hjelpe.", cta:"Ring NAV: 55 55 33 33 →" },
+      cards: [
+        { badge:"b-arbeid", cat:"Arbeid",  title:"NAV Bergen – veiledning", desc:"Gratis hjelp til jobb, kurs, arbeidstrening og ytelser. Møt opp eller ring.", tags:["gratis","NAV"], where:"📍 Lars Hilles gate 30", cta:"Ring 55 55 33 33 →", ctaStyle:"" },
+        { badge:"b-arbeid", cat:"Kurs",    title:"Jobbsøker-kurs – lavterskel", desc:"CV-skriving og søknadshjelp i et trygt, uformelt miljø. Ingen forkunnskaper.", tags:["gratis","lavt"], where:"📍 NAV Bergen · Ukentlig", cta:"Meld deg på →" },
+        { badge:"b-arbeid", cat:"Karriere",title:"Karrieresenter Vestland", desc:"Gratis karriereveiledning for alle uansett bakgrunn. Rask time.", tags:["gratis","åpent for alle"], where:"📍 Kong Oscars gate 39", cta:"Book tid gratis →" },
+        { badge:"b-sosialt", cat:"Kurs",   title:"Kirkens Bymisjon – kurs og mestring", desc:"Praktiske kurs, mestring og sosial tilknytning. Lav terskel, ikke-stigmatiserende.", tags:["gratis","lavt"], where:"📍 Nygårdsgaten 26", cta:"Se kursoversikt →" },
+      ]
+    },
+    "ensomhet": {
+      startHer: { title:"Ring Røde Kors: 800 33 321", text:"Gratis, åpent alle dager kl 12–21. Bare ring.", cta:"Ring nå" },
+      cards: [
+        { badge:"b-sosialt", cat:"Kontakt", title:"Røde Kors – Besøkstjenesten", desc:"En frivillig som besøker deg hjemme eller møter deg ute. Varm og uformell kontakt.", tags:["gratis","hele Bergen"], where:"📍 Strandkaien 6 · Tlf 55 23 72 00", cta:"Kom i kontakt →", ctaStyle:"" },
+        { badge:"b-sosialt", cat:"Sosialt", title:"Kafé og prat – Frivilligsentralen", desc:"Noe skjer her hver dag. Kaffeprat, kortspill, turer. Bare møt opp.", tags:["gratis","drop-in"], where:"📍 Nygårdsgaten 5 · Hverdager 10–13", cta:"Se åpningstider →" },
+        { badge:"b-helse",   cat:"Hjelp",  title:"Mental Helse – 116 123", desc:"Ring når som helst. Gratis, anonymt, alltid tilgjengelig.", tags:["gratis","24/7","anonymt"], where:"📞 116 123", cta:"Ring 116 123 →", ctaStyle:"" },
+        { badge:"b-sosialt", cat:"Mat",     title:"Kirkens Bymisjon – åpen dør", desc:"Varm mat, kaffe og menneskelig kontakt uten krav. Alle er velkomne.", tags:["gratis","åpent for alle"], where:"📍 Nygårdsgaten 26 · Alle dager 10–20", cta:"Se åpningstider →" },
+      ]
+    },
+    "okonomi": {
+      startHer: { title:"Gjeldsrådgivning – gratis og konfidensielt", text:"Ring for time. Ingen venteliste.", cta:"Ring 55 56 66 00 →" },
+      cards: [
+        { badge:"b-okonomi", cat:"Økonomi", title:"Gjeldsrådgivning – Bergen kommune", desc:"Gratis og konfidensielt. Hjelp med økonomi og kreditorer.", tags:["gratis","konfidensielt"], where:"📍 Rådstuplass 3", cta:"Ring 55 56 66 00 →", ctaStyle:"" },
+        { badge:"b-sosialt",  cat:"Mat",     title:"Gratis måltider – Kirkens Bymisjon", desc:"Varm mat og kaffe uten krav. Alle er velkomne.", tags:["gratis","daglig"], where:"📍 Nygårdsgaten 26 · Lunch kl 12", cta:"Se tidspunkter →" },
+        { badge:"b-okonomi", cat:"Praktisk", title:"Frelsesarmeen – praktisk hjelp", desc:"Klær, mat, møbler og støtte. Hjelp uten byråkrati.", tags:["gratis","praktisk"], where:"📍 Kong Oscars gate 34", cta:"Kontakt dem →" },
+        { badge:"b-okonomi", cat:"Barn",     title:"Fritidskortet – barn og unge", desc:"Støtte på 4 000 kr til fritidsaktiviteter for barn 6–18 i lavinntektsfamilier.", tags:["kommunalt","for barn"], where:"📍 Søk via Bergen kommune", cta:"Søk Fritidskortet →" },
+        { badge:"b-okonomi", cat:"Video",    title:"Husholdningsbudsjett", desc:"Praktisk gjennomgang av hvordan du setter opp et husholdningsbudsjett. Kom i gang med god oversikt over inntekter og utgifter.", tags:["video","budsjettering","tips"], where:"📍 YouTube", href:"https://www.youtube.com/watch?v=UHEScq6qZkA", cta:"▶ Se video →", ctaStyle:"blue-cta" },
+        { badge:"b-okonomi", cat:"Verktøy",  title:"Referansebudsjettet – SIFO", desc:"OsloMet sitt offisielle referansebudsjett viser hva det koster å leve i Norge. Nyttig sammenligningsgrunnlag for å vurdere eget forbruk.", tags:["budsjettering","referanse","gratis"], where:"📍 oslomet.no/sifo", href:"https://www.oslomet.no/om/sifo/referansebudsjettet", cta:"Se referansebudsjettet →" },
+        { badge:"b-okonomi", cat:"Kalkulator", title:"Personlig budsjett – SIFO-basert", desc:"Legg inn husstand og inntekter – kalkulatoren viser ditt anslåtte forbruk basert på SIFOs referansetall for 2025 og hva du har til overs.", tags:["kalkulator","budsjett","SIFO 2025"], where:"📍 Basert på OsloMet / SIFO 2025", modal:"budsjettkalkulator", cta:"Åpne kalkulator →" },
+      ]
+    },
+    "psykisk-helse": {
+      startHer: { title:"Rask Psykisk Helsehjelp Bergen – ingen venteliste", text:"Gratis kommunalt tilbud. Ingen henvisning nødvendig.", cta:"Se tilbudet →" },
+      cards: [
+        { badge:"b-helse", cat:"Helse", title:"Rask Psykisk Helsehjelp Bergen", desc:"Gratis kommunalt tilbud. Kurs og samtaler ved angst og depresjon. Ingen fastlege-henvisning.", tags:["gratis","rask hjelp"], where:"📍 Christies gate 12", cta:"Ta kontakt →", ctaStyle:"" },
+        { badge:"b-helse", cat:"Helse", title:"SiB Rådgivning (studenter)", desc:"Gratis psykologsamtale for studenter. Ingen kø, ingen krav.", tags:["gratis","studenter"], where:"📍 Parkveien 1", cta:"Book time gratis →" },
+        { badge:"b-helse", cat:"Krise", title:"Mental Helse – 116 123", desc:"Alltid åpent, gratis, anonymt.", tags:["gratis","24/7","anonymt"], where:"📞 116 123", cta:"Ring 116 123 →", ctaStyle:"" },
+        { badge:"b-helse", cat:"Krise", title:"Kirkens SOS Bergen", desc:"Krisetelefon og støttesamtaler. Åpent kveld og natt.", tags:["gratis","kveld og natt"], where:"📞 22 40 00 40", cta:"Ring 22 40 00 40 →" },
+      ]
+    }
+  },
+
+  alder: {
+    "15-18": {
+      startHer: null,
+      cards: [
+        { badge:"b-fritid",  cat:"Fritid",  title:"Ungdomsklubber Bergen", desc:"Kommunale ungdomsklubber over hele Bergen. Gratis inngang, drop-in.", tags:["gratis","drop-in"], where:"📍 Alle bydeler", cta:"Finn din klubb →" },
+        { badge:"b-helse",   cat:"Helse",   title:"Helsestasjon for ungdom", desc:"Snakk med helsesykepleier om stress, kropp og relasjoner. Gratis og konfidensielt.", tags:["gratis","konfidensielt"], where:"📍 Lungegårdskaien 1c · Man–fre", cta:"Kom innom →", ctaStyle:"" },
+        { badge:"b-sosialt", cat:"Sosialt", title:"BUY – Bergen Ung og Voksen", desc:"Sosiale aktiviteter og turer for ungdom. Trygt og uformelt miljø.", tags:["gratis","lavt"], where:"📍 Christies gate", cta:"Se aktiviteter →" },
+        { badge:"b-fritid",  cat:"Kultur",  title:"Kulturskolen Bergen", desc:"Musikk, teater og dans. Søk om redusert pris.", tags:["subsidiert mulig"], where:"📍 Lungegårdskaien 1c", cta:"Se tilbud →" },
+      ]
+    },
+    "18-25": {
+      startHer: { title:"Usikker på hva du trenger? Start her.", text:"NAV Bergen: gratis veiledning, ingen krav og ingen stigma.", cta:"Ring NAV: 55 55 33 33 →" },
+      cards: [
+        { badge:"b-arbeid",  cat:"Arbeid",  title:"NAV Bergen – veiledning", desc:"Gratis hjelp til jobb, kurs og ytelser. Uformelt og ikke-stigmatiserende.", tags:["gratis","lavt"], where:"📍 Lars Hilles gate 30", cta:"Ring 55 55 33 33 →", ctaStyle:"" },
+        { badge:"b-sosialt", cat:"Sosialt", title:"Studentforeninger UiB / HVL", desc:"Over 100 foreninger – sport, kultur, faglig og sosialt. Lav terskel.", tags:["gratis inngang"], where:"📍 Studentsenteret, Parkveien 1", cta:"Se alle foreninger →" },
+        { badge:"b-helse",   cat:"Helse",   title:"SiB Rådgivning – psykisk helse", desc:"Gratis psykologsamtale for studenter. Ingen fastlege-henvisning.", tags:["gratis","studenter"], where:"📍 Parkveien 1", cta:"Book time →" },
+        { badge:"b-okonomi", cat:"Økonomi", title:"Studentrådgivning SiB", desc:"Gratis rådgivning om økonomi og bosituasjon. Rask time.", tags:["gratis"], where:"📍 Parkveien 1", cta:"Book time →" },
+        { badge:"b-sosialt", cat:"Sosialt", title:"Spillkvelder og sosiale grupper", desc:"Ukentlige spillkvelder og sosiale arrangement i regi av studenter og frivillighet.", tags:["gratis","drop-in"], where:"📍 Diverse steder", cta:"Se hva som skjer →" },
+        { badge:"b-nattliv", cat:"Uteliv 18+", title:"Utesteder Bergen – 18 til 20 år", desc:"8 utesteder med 18+ mulighet i Bergen sentrum – klubb, konsert, studentbar, barer og ny siderbar. Inkluderer praktiske tips om aldersgrenser og beste tidspunkt.", tags:["18+","uteliv","nattliv"], where:"📍 Bergen sentrum", modal:"uteliv18", cta:"Sjekk steder →", ctaStyle:"blue-cta" },
+      ]
+    },
+    "25-40": {
+      startHer: null,
+      cards: [
+        { badge:"b-arbeid",  cat:"Nettverk", title:"Bergen Næringsråd – arrangementer", desc:"Åpne nettverksarrangementer for næringsliv og fagmiljøer.", tags:["nettverk"], where:"📍 Bergen sentrum – varierende", cta:"Se kommende →" },
+        { badge:"b-fritid",  cat:"Fritid",   title:"Kommunale trimgrupper", desc:"Trim og aktivitet til subsidiert pris i alle bydeler.", tags:["subsidiert"], where:"📍 Alle bydeler", cta:"Se tilbud →" },
+        { badge:"b-sosialt", cat:"Frivillig", title:"Bli frivillig – Frivilligsentralen", desc:"Bruk kompetansen din, møt folk og bidra på dine premisser.", tags:["fleksibelt","gratis"], where:"📍 Nygårdsgaten 5", cta:"Meld interesse →" },
+        { badge:"b-helse",   cat:"Helse",    title:"Frisklivssentralen Bergen", desc:"Gratis kurs og oppfølging for bedre levevaner.", tags:["gratis","kommunalt"], where:"📍 Solheimsgaten 9", cta:"Ta kontakt →" },
+      ]
+    },
+    "40-60": {
+      startHer: null,
+      cards: [
+        { badge:"b-fritid",  cat:"Natur",    title:"Turlag Bergen", desc:"Organiserte turer for alle nivåer. Sosialt og naturbasert.", tags:["lavt","natur"], where:"📍 Diverse møtepunkter", cta:"Se turprogram →" },
+        { badge:"b-helse",   cat:"Helse",    title:"Kreftomsorg Vest – pårørendestøtte", desc:"Gratis samtalegrupper for pårørende.", tags:["gratis","støtte"], where:"📍 Møllendalsveien 1", cta:"Ta kontakt →", ctaStyle:"" },
+        { badge:"b-sosialt", cat:"Frivillig", title:"Røde Kors – aktivitet og frivillighet", desc:"Sosiale aktiviteter og frivillig engasjement. Fleksibelt.", tags:["gratis","fleksibelt"], where:"📍 Røde Kors Bergen", cta:"Finn tilbud →" },
+        { badge:"b-okonomi", cat:"Økonomi",  title:"Gjeldsrådgivning – Bergen kommune", desc:"Gratis og konfidensielt. Hjelp med økonomi og kreditorer.", tags:["gratis","konfidensielt"], where:"📍 Rådstuplass 3", cta:"Ring 55 56 66 00 →" },
+      ]
+    },
+    "60-75": {
+      startHer: null,
+      cards: [
+        { badge:"b-fritid",  cat:"Aktivitet", title:"SeniAktiv Bergen", desc:"Padel, klatring, dans og svømming – bredt tilbud for aktive seniorer.", tags:["subsidiert","alle nivåer"], where:"📍 Diverse anlegg", cta:"Se program →" },
+        { badge:"b-sosialt", cat:"Sosialt",   title:"Frivilligsentralen – seniorgrupper", desc:"Ukentlige treff, interessegrupper og turer. Gratis.", tags:["gratis","ukentlig"], where:"📍 Nygårdsgaten 5", cta:"Se hva som passer →" },
+        { badge:"b-arbeid",  cat:"Frivillig", title:"Bli frivillig i Bergen", desc:"Bruk din erfaring og kompetanse meningsfullt.", tags:["fleksibelt"], where:"📍 Røde Kors, Frivilligsentralen m.fl.", cta:"Finn din rolle →" },
+        { badge:"b-helse",   cat:"Helse",     title:"Frisklivssentralen – seniortilbud", desc:"Gratis tilbud for bedre levevaner og fysisk aktivitet.", tags:["gratis","kommunalt"], where:"📍 Solheimsgaten 9", cta:"Kom i gang →", ctaStyle:"" },
+        { badge:"b-fritid",  cat:"Din vei",   title:"Aktiv senior i Bergen – full guide", desc:"Møteplasser, trening, natur, kultur og frivillighet. En komplett modell for en aktiv og meningsfull hverdag i Bergen.", tags:["guide","senior","hverdagsplan"], where:"📍 Hele Bergen", modal:"aktivsenior", cta:"Se din vei →" },
+      ]
+    },
+    "75pluss": {
+      startHer: { title:"Kafé og samvær nær deg – bare møt opp", text:"Ingen påmelding. Frivilligsentralen er åpen hverdager kl 10–13.", cta:"Se adresse og kart →" },
+      cards: [
+        { badge:"b-sosialt", cat:"Sosialt",   title:"Kafé og prat – Frivilligsentralen", desc:"Gratis kaffe og sosialt samvær. Drop-in, ingen påmelding – bare møt opp.", tags:["gratis","drop-in"], where:"📍 Nygårdsgaten 5 · Hverdager 10–13", cta:"Se adresse og kart →", ctaStyle:"" },
+        { badge:"b-sosialt", cat:"Sosialt",   title:"Seniortreff i din bydel", desc:"Ukentlige treff på aktivitetssentre i alle bydeler. Bingo, kortspill og kaffe.", tags:["gratis"], where:"📍 Alle bydeler – ring for nærmeste", cta:"Finn ditt senter →" },
+        { badge:"b-sosialt", cat:"Kontakt",   title:"Røde Kors – Besøkstjenesten", desc:"En frivillig besøksvenn som kommer hjem til deg eller møter deg ute.", tags:["gratis","hjemmebesøk mulig"], where:"📍 Tlf 55 23 72 00", cta:"Ring for å bestille →" },
+        { badge:"b-fritid",  cat:"Aktivitet", title:"Biblioteket – tilgjengelig for alle", desc:"Gratis arrangement, lydbøker og sosialt samvær. Rullestolvennlig.", tags:["gratis","tilgjengelig"], where:"📍 Strømgaten 6 · Man–lør", cta:"Se program →" },
+        { badge:"b-helse",   cat:"Helse",     title:"Hjelpemiddelformidling Bergen", desc:"Gratis hjelpemidler via kommunen. Søk via fastlege.", tags:["gratis","kommunalt"], where:"📍 Via fastlege / Servicetorget", cta:"Slik søker du →" },
+        { badge:"b-sosialt", cat:"Transport", title:"TT-transport og Flexruten", desc:"Tilrettelagt transport til aktivitet for de som trenger det.", tags:["subsidiert"], where:"📍 Søk via Skyss", cta:"Les om transport →" },
+      ]
+    }
+  },
+  "ny-i-byen": {
+    "bli-kjent": {
+      startHer: { title:"Bergen Internasjonale møteplass – åpent for alle", text:"Arrangementer der nye bergensere møter hverandre. Gratis, uformelt.", cta:"Se neste arrangement →" },
+      cards: [
+        { badge:"b-sosialt", cat:"Sosialt",   title:"Internasjonalt møtested Bergen", desc:"Månedlige arrangementer og aktiviteter for folk fra hele verden. Gratis, ingen påmelding.", tags:["gratis","internasjonal"], where:"📍 Bergen sentrum", cta:"Se kalender →" },
+        { badge:"b-sosialt", cat:"Nettverk",  title:"Tandem-venner – språk og kultur", desc:"Bli matchet med en bergenser for å øve norsk og bli kjent med byen.", tags:["gratis","ukentlig"], where:"📍 Bergen bibliotek", cta:"Meld deg på →" },
+        { badge:"b-fritid",  cat:"Aktivitet", title:"Fotball og idrett for alle – BIL", desc:"Treningstider åpne for alle, uansett nivå og bakgrunn.", tags:["gratis","drop-in"], where:"📍 Bergenshallen og lokale baner", cta:"Se treningsider →" },
+        { badge:"b-sosialt", cat:"Kulturhus",    title:"Bergen Internasjonale Kultursenter", desc:"Etablert flerkulturelt møtested og kulturhus med dans, musikk, kurs og kulturutveksling. Startet som møteplass for innvandrerorganisasjoner i Hordaland – i dag en sentral arena for mangfold i Bergen.", tags:["gratis","internasjonal","kultur"], where:"📍 Kong Oscars gate 15 · Tlf +47 55 32 33 96", href:"https://bergeninternasjonalekultursenter.no/", cta:"Besøk nettstedet →" },
+        { badge:"b-sosialt", cat:"Inkludering",  title:"Bergen Inkluderingssenter", desc:"Kommunalt lavterskeltilbud med møteplasser, aktiviteter og informasjon for flyktninger, innvandrere og lokalbefolkning. Gratis, åpent for alle.", tags:["gratis","kommunalt","nettverk"], where:"📍 Landåssvingen 15, Bergen", href:"https://www.bergen.kommune.no/innbyggerhjelpen/bolig-og-sosiale-tjenester/inkludering/moteplasser/bergen-inkluderingssenter", cta:"Les mer →" },
+        { badge:"b-sosialt", cat:"Ressurssenter", title:"Empo – flerkulturelt ressurssenter", desc:"Kirkens Bymisjon tilbyr møteplasser, aktiviteter og støtte for mennesker med minoritetsbakgrunn. Tilstede i flere bydeler i Bergen.", tags:["gratis","støtte","lavterskel"], where:"📍 Kong Oscars gate & Slettebakken", href:"https://kirkensbymisjon.no/tilbud-empo-flerkulturelt-ressurssenter/kontaktinformasjon/", cta:"Finn kontaktinfo →" },
+      ]
+    },
+    "jobb-og-kurs": {
+      startHer: { title:"Karrieresenter Vestland – gratis veiledning", text:"Hjelp til å forstå norsk arbeidsmarked. Ingen krav til bakgrunn.", cta:"Book gratis time →" },
+      cards: [
+        { badge:"b-arbeid",  cat:"Veiledning", title:"Karrieresenter Vestland", desc:"Gratis rådgivning om jobb og utdanning. Hjelper deg å forstå det norske arbeidsmarkedet.", tags:["gratis","drop-in mulig"], where:"📍 Kaigaten 9, Bergen", cta:"Book time →" },
+        { badge:"b-arbeid",  cat:"Arbeid",     title:"NAV Bergen – arbeidsveiledning", desc:"CV-hjelp, jobbsøk og veiledning. Åpent for alle, ingen stigma.", tags:["gratis"], where:"📍 NAV Bergen Sentrum", cta:"Ta kontakt →" },
+        { badge:"b-arbeid",  cat:"Kurs",       title:"Norskkurs for arbeidslivet", desc:"Lær norsk med fokus på arbeidssituasjoner. Gratis for mange.", tags:["kurs","hverdager"], where:"📍 VOX og nettbasert", cta:"Se kurskalender →" },
+        { badge:"b-arbeid",  cat:"Nettverk",   title:"Expat-nettverket Bergen", desc:"Profesjonelt nettverk for internasjonale arbeidstakere i Bergen.", tags:["nettverk","månedlig"], where:"📍 Varierende sted", cta:"Bli med →" },
+      ]
+    },
+    "praktisk-info": {
+      startHer: { title:"Servicetorget Bergen – én dør inn", text:"Spørsmål om kommunale tjenester? Møt opp eller ring – de hjelper deg videre.", cta:"Se åpningstider →" },
+      cards: [
+        { badge:"b-sosialt", cat:"Helse",      title:"Fastlege – slik registrerer du deg", desc:"Alle har rett til fastlege i Norge. Enkelt å registrere seg på helsenorge.no.", tags:["rettighet","gratis"], where:"📍 helsenorge.no / ditt legekontor", cta:"Les hvordan →" },
+        { badge:"b-okonomi", cat:"Økonomi",    title:"Skattekontoret Bergen – hjelp til selvangivelse", desc:"Gratis hjelp til skatt og økonomi. Spesielt nyttig ditt første år.", tags:["gratis","viktig"], where:"📍 Fortunen 1, Bergen", cta:"Book veiledning →" },
+        { badge:"b-sosialt", cat:"Praktisk",   title:"Bergen bibliotek – gratis ressurser", desc:"Internett, trykking, kurs og hjelp. Helt gratis med lånekort.", tags:["gratis"], where:"📍 Strømgaten 6 · Man–lør", cta:"Få lånekort →" },
+        { badge:"b-okonomi", cat:"Rettigheter",title:"Jusstelefonen – gratis juridisk hjelp", desc:"Frivillige jurister svarer på dine spørsmål. Gratis, anonymt.", tags:["gratis","anonym"], where:"📍 Tlf 22 84 29 00 · Man–fre", cta:"Ring →" },
+      ]
+    },
+    "norsk-sprak": {
+      startHer: { title:"Språkkafé på Bergen bibliotek – bare møt opp", text:"Øv norsk i uformelt miljø, onsdager kl 17. Gratis, alle nivåer.", cta:"Se adresse →" },
+      cards: [
+        { badge:"b-sosialt", cat:"Språk",   title:"Språkkafé – Bergen bibliotek", desc:"Øv norsk i en avslappet atmosfære med frivillige samtalepartnere.", tags:["gratis","onsdager 17:00"], where:"📍 Strømgaten 6", cta:"Bare møt opp →", ctaStyle:"" },
+        { badge:"b-arbeid",  cat:"Kurs",    title:"Norskkurs – Voksenopplæringen", desc:"Strukturerte norskkurs på alle nivåer. Noen gratis, avhenger av situasjon.", tags:["kurs"], where:"📍 Ulike lokasjoner i Bergen", cta:"Finn ditt kurs →" },
+        { badge:"b-sosialt", cat:"Digital", title:"Digitale norskkurs – gratis", desc:"Øv norsk hjemmefra via Duolingo og NRK Norsk for innvandrere. Helt gratis.", tags:["gratis","online"], where:"📍 nrk.no/norsk · duolingo.com", cta:"Start i dag →" },
+        { badge:"b-sosialt", cat:"Samtale", title:"Tandem-venner Bergen", desc:"Bli matchet med en norsktalende venn. Øv norsk, lær om Bergen.", tags:["gratis","individuelt"], where:"📍 Bergen bibliotek", cta:"Meld deg →" },
+      ]
+    },
+    "utforsk-bergen": {
+      startHer: { title:"Start med Bryggen – hjertet av Bergen", text:"Gå gjennom de historiske smauene, les om historien og opplev byens sjel. Gratis å besøke.", cta:"Les om Bryggen →" },
+      cards: [
+        { badge:"b-kultur", cat:"Historie",    title:"Bryggen – UNESCO-verdensarv", desc:"Ikonisk trebebyggelse fra hansatiden med smau, butikker og levende lokalhistorie. Byens mest fotograferte sted.", tags:["gratis","UNESCO","must-see"], where:"📍 Bryggen, Bergen sentrum", href:"https://stiftelsenbryggen.no/", cta:"Utforsk Bryggen →" },
+        { badge:"b-kultur", cat:"Museum",      title:"Rosenkrantztårnet – middelalder i sentrum", desc:"Opplev middelalderborgen i Bergenhus festning med panoramautsikt over Vågen.", tags:["museum","middelalder"], where:"📍 Bergenhus festning", href:"https://bymuseet.no/museum/rosekrantztarnet/", cta:"Se åpningstider →" },
+        { badge:"b-kultur", cat:"Museum",      title:"Bergen maritime museum", desc:"Sjøfartshistorie fra Vestlandet – skip, handelsruter og livet langs kysten.", tags:["museum","gratis for barn"], where:"📍 Haakon Sheteligs pl. 15", href:"https://sjofartsmuseum.museumvest.no/", cta:"Planlegg besøk →" },
+        { badge:"b-kultur", cat:"Kunst",       title:"KODE Lysverket – moderne og klassisk kunst", desc:"Norges største samling av internasjonalt kjente verk – Munch, Picasso, Klee. Moderne arkitektur ved Lille Lungegårdsvannet.", tags:["museum","verdensnavn"], where:"📍 Rasmus Meyers allé 9", href:"https://www.kodebergen.no/", cta:"Se utstillinger →" },
+        { badge:"b-kultur", cat:"Kunst",       title:"KODE Permanenten – dekorativ kunst og design", desc:"Vest-Norges rikeste samling av kunsthåndverk, møbler og design fra 1500-tallet til i dag.", tags:["museum","design","håndverk"], where:"📍 Nordahl Bruns gate 9", href:"https://www.kodebergen.no/museene/permanenten", cta:"Utforsk samlingen →" },
+        { badge:"b-kultur", cat:"Kunsthall",   title:"Bergen Kunsthall – samtidskunst", desc:"Spennende og tilgjengelig samtidskunst av lokale og internasjonale kunstnere. Skiftende utstillinger.", tags:["kunsthall","samtidskunst"], where:"📍 Rasmus Meyers allé 5", href:"https://www.kunsthall.no/", cta:"Se hva som vises →" },
+        { badge:"b-sosialt", cat:"Byrom",      title:"Musikkpaviljongen – kulturpunkt i Byparken", desc:"Historisk musikk­paviljong midt i Byparken. Sommerkonserter, sosialt samvær og parkmiljø.", tags:["gratis","utendørs","sommer"], where:"📍 Byparken, Bergen sentrum", href:"https://www.bergen.kommune.no/", cta:"Se programmet →" },
+        { badge:"b-sosialt", cat:"Hage",       title:"Muséhagen – botanisk oase", desc:"Rolig botanisk hage midt i byen. Fri adgang, perfekt for en pause mellom severdigheter.", tags:["gratis","botanisk","uterom"], where:"📍 Muséplassen, Bergen sentrum", href:"https://www.uib.no/universitetshagene/89383/mus%C3%A9hagen", cta:"Se kart →" },
+        { badge:"b-sosialt", cat:"Landemerke", title:"Den blå steinen – byens møtepunkt", desc:"Kunstnerisk ikon og uformelt samlingssted i hjertet av Bergen. Alle vet hvor den er.", tags:["gratis","sentralt"], where:"📍 Torgallmenningen, Bergen sentrum", cta:"Finn den →" },
+        { badge:"b-sosialt", cat:"Landemerke", title:"Ole Bull-fontenen – historisk byrom", desc:"Vakker fontene og monument over den berømte bergenske fiolinisten. Ramme for byliv hele dagen.", tags:["gratis","historisk"], where:"📍 Ole Bulls plass, sentrum", cta:"Se på kart →" },
+        { badge:"b-sosialt", cat:"Landemerke", title:"Ludvig Holberg-statuen – litterært landemerke", desc:"Minnesmerke over Bergens store sønn og Nordens Molière. Et naturlig stoppested i sentrum.", tags:["gratis","kultur"], where:"📍 Torgallmenningen", href:"https://www.visitbergen.com/", cta:"Les om Holberg →" },
+        { badge:"b-fritid", cat:"Natur",       title:"Fløibanen – utsikt over hele Bergen", desc:"Ta taubanen opp til Fløyen for spektakulær panoramautsikt, turstier og restaurant. Bergen sett ovenfra.", tags:["taubane","utsikt","turstier"], where:"📍 Vetrlidsallmenningen 23A", href:"https://www.floyen.no/", cta:"Se avgangstider →" },
+        { badge:"b-fritid", cat:"Fjelltur",    title:"Vidden – klassisk fjelltur", desc:"Markert sti mellom Fløyen og Ulriken med storslått utsikt over fjorder og bylandskapet. Ca. 3–4 timer.", tags:["turgåing","utsikt","krevende"], where:"📍 Start fra Fløyen eller Ulriken", cta:"Planlegg turen →" },
+        { badge:"b-fritid", cat:"Natur",       title:"De syv fjellene – marka rett utenfor døren", desc:"Bergen er omgitt av syv fjell – alle med markerte stier og enkel tilgang fra sentrum. Gratis, for alle nivåer.", tags:["gratis","friluft","alle nivåer"], where:"📍 Fløyen, Ulriken, Sandviksfjellet m.fl.", href:"https://www.floyen.no/", cta:"Se turtips →" },
+        { badge:"b-fritid", cat:"Fjordtur",    title:"Rødne Fjord Cruise – klassisk fjordtur", desc:"Kjente fjordturer fra Bergen havn. Se Hardangerfjorden og opplev Vestlandet fra sjøen.", tags:["fjord","cruise","opplevelse"], where:"📍 Strandkaien, Bergen havn", href:"https://www.rodne.no/", cta:"Se turer og priser →" },
+        { badge:"b-fritid", cat:"Fjordtur",    title:"Mostraumen Fjord Cruise", desc:"Spektakulær tur gjennom trange sund og dramatiske fjorder. En av de mest imponerende fjordopplevelsene nær Bergen.", tags:["fjord","cruise","anbefalt"], where:"📍 Strandkaien, Bergen havn", href:"https://www.bergencruise.no/", cta:"Book fjordtur →" },
+        { badge:"b-kultur", cat:"Guidet tur",  title:"Mat og kultur – guidet byvandring", desc:"Smak lokale spesialiteter og lær historien bak Bergens matkultur. En av byens mest populære opplevelser.", tags:["guidet","mat","kultur"], where:"📍 Avgang Bergen sentrum", href:"https://en.visitbergen.com/things-to-do/food-and-culture-guided-walk-p3344163", cta:"Book plass →" },
+        { badge:"b-sosialt", cat:"Gateliv",    title:"Smauene mellom Bryggen og Festplassen", desc:"Utforsk de små gatene, kafeene og butikkene som gjemmer seg mellom de store landemerkene. Byens skjulte sjarme.", tags:["gratis","kafé","overraskelser"], where:"📍 Sentrum – mellom Bryggen og Festplassen", cta:"Gå på oppdagelse →" },
+        { badge:"b-fritid", cat:"Marked",      title:"Fisketorget – Bergens hjerte", desc:"Levende fiskemarked med lokale råvarer, sjømat og stemning. Åpent daglig – et must for alle nykommere.", tags:["marked","mat","gratis å besøke"], where:"📍 Torget, Bergen sentrum", cta:"Finn veien →" },
+        { badge:"b-fritid", cat:"Attraksjon",  title:"Akvariet i Bergen", desc:"Et av Norges største og mest populære akvarium – med pingviner, sel, haier og hundrevis av fiskearter. Perfekt for hele familien.", tags:["akvarium","familie","opplevelse"], where:"📍 Nordnesbakken 4, Nordnes", href:"http://www.akvariet.no/", cta:"Besøk nettstedet →" },
+      ]
+    }
+  }
+};
+
+const STEP2 = {
+  aktivitet: {
+    type:"need", title:"Hva slags aktivitet leter du etter?", sub:"Velg det nærmeste – du kan alltid gå tilbake.",
+    options:[
+      { key:"møte-folk",            icon:"☕", label:"Jeg vil møte folk",        sub:"Kafé, treff, sosialt samvær" },
+      { key:"aktivitet-og-trening", icon:"🏃", label:"Bevege meg / trene",       sub:"Trim, tur, sport" },
+      { key:"kultur-og-opplevelse", icon:"🎭", label:"Kultur og opplevelse",     sub:"Bibliotek, konserter, utstillinger" },
+    ]
+  },
+  hjelp: {
+    type:"need", title:"Hva handler det om?", sub:"Velg det nærmeste – ingen feil svar.",
+    options:[
+      { key:"jobb-skole",    icon:"💼", label:"Jobb / skole / retning", sub:"Kurs, veiledning, arbeidstrening" },
+      { key:"ensomhet",      icon:"🫂", label:"Ensomhet",               sub:"Møteplasser og kontakt" },
+      { key:"okonomi",       icon:"💶", label:"Økonomi / praktisk hjelp",sub:"Gjeld, mat, klær" },
+      { key:"psykisk-helse", icon:"🌿", label:"Psykisk helse",           sub:"Samtaler og støtte" },
+    ]
+  },
+  alder: {
+    type:"age", title:"Velg din vei etter alder", sub:"Vi viser tilbud tilpasset akkurat den livsfasen.",
+    options:[
+      { key:"15-18",   icon:"🎒", range:"15–18 år", label:"Ungdom" },
+      { key:"18-25",   icon:"🎓", range:"18–25 år", label:"Student / ung voksen" },
+      { key:"25-40",   icon:"💼", range:"25–40 år", label:"Etablering" },
+      { key:"40-60",   icon:"🏡", range:"40–60 år", label:"Familie & balanse" },
+      { key:"60-75",   icon:"🚴", range:"60–75 år", label:"Aktiv senior" },
+      { key:"75pluss", icon:"☕", range:"75+ år",   label:"Senior" },
+    ]
+  },
+  "ny-i-byen": {
+    type:"need", title:"Hva trenger du hjelp til?", sub:"Vi hjelper deg å finne veien i Bergen – uansett hvor du er fra.",
+    link:{ href:"https://www.bergen.kommune.no/omkommunen/ny-i-bergen", icon:"🏛️", label:"Bergen kommune – Ny i Bergen", sub:"Offisiell informasjon om å bo og leve i Bergen" },
+    options:[
+      { key:"bli-kjent",      icon:"🤝", label:"Møte folk og bli kjent",   sub:"Møteplasser, nettverk, sosiale arenaer" },
+      { key:"jobb-og-kurs",  icon:"💼", label:"Finne jobb eller kurs",     sub:"Veiledning, arbeidstrening, norsk" },
+      { key:"praktisk-info", icon:"🏠", label:"Praktisk orientering",      sub:"Helsetjenester, økonomi, rettigheter" },
+      { key:"norsk-sprak",   icon:"🗣️", label:"Norsk og språk",            sub:"Kurs, språkkafé, øving" },
+      { key:"utforsk-bergen",icon:"🗺️", label:"Utforsk Bergen",            sub:"Kultur, natur og opplevelser" },
+    ]
+  }
+};
+
+// ── State ─────────────────────────────────────────────────
+let currentPath = null;
+let currentSub  = null;
+
+// ── Step bar ──────────────────────────────────────────────
+function setStep(n) {
+  document.getElementById('step-bar').classList.remove('hidden');
+  [1,2,3].forEach(i => {
+    document.getElementById('sb'+i).className = 'step-item' + (i<n?' done':i===n?' active':'');
+    if(i<3) document.getElementById('sd'+i).className = 'step-div'+(i<n?' done':'');
+  });
+}
+
+// ── Path selection ────────────────────────────────────────
+function choosePath(btn) {
+  document.querySelectorAll('.path-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentPath = btn.dataset.path;
+  currentSub  = null;
+  document.getElementById('results-section').classList.add('hidden');
+  buildStep2(currentPath);
+  setStep(2);
+  const p = document.getElementById('step2-panel');
+  p.classList.remove('hidden');
+  p.classList.add('fade-in');
+  setTimeout(function() {
+    var top = p.getBoundingClientRect().top + window.pageYOffset - 72;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }, 80);
+}
+
+function buildStep2(path) {
+  const cfg = STEP2[path];
+  const el  = document.getElementById('step2-content');
+  document.getElementById('sb2-label').textContent = cfg.type==='age' ? 'Aldersgruppe' : 'Hva trenger du?';
+  if(cfg.type==='age') {
+    el.innerHTML = `<div class="wizard-title">${cfg.title}</div><p class="wizard-sub">${cfg.sub}</p>
+    <div class="age-grid">${cfg.options.map(o=>`
+      <div class="age-btn" data-key="${o.key}" onclick="chooseOption(this,'${o.key}')">
+        <div class="ab-icon">${o.icon}</div>
+        <div class="ab-range">${o.range}</div>
+        <div class="ab-label">${o.label}</div>
+      </div>`).join('')}</div>`;
+  } else {
+    const linkHTML = cfg.link ? `
+    <a href="${cfg.link.href}" target="_blank" rel="noopener" class="wizard-link-banner">
+      <div class="wlb-left">
+        <div class="wlb-icon">${cfg.link.icon}</div>
+        <div><div class="wlb-label">${cfg.link.label}</div><div class="wlb-sub">${cfg.link.sub}</div></div>
+      </div>
+      <div class="wlb-arrow">↗</div>
+    </a>` : '';
+    el.innerHTML = `<div class="wizard-title">${cfg.title}</div><p class="wizard-sub">${cfg.sub}</p>
+    <div class="need-grid">${cfg.options.map(o=>`
+      <div class="need-btn" data-key="${o.key}" onclick="chooseOption(this,'${o.key}')">
+        <div class="nb-icon">${o.icon}</div>
+        <div><div class="nb-label">${o.label}</div><div class="nb-sub">${o.sub}</div></div>
+      </div>`).join('')}</div>${linkHTML}`;
+  }
+}
+
+// ── Option selection ──────────────────────────────────────
+function chooseOption(btn, key) {
+  btn.closest('.age-grid,.need-grid').querySelectorAll('.age-btn,.need-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentSub = key;
+  setTimeout(()=>showResults(currentPath,key),220);
+}
+
+function showResults(path, sub) {
+  const data = DATA[path]?.[sub];
+  if(!data) return;
+
+  document.getElementById('step2-panel').classList.add('hidden');
+  setStep(3);
+  const opt = STEP2[path].options.find(o=>o.key===sub);
+  document.getElementById('sb2-label').textContent = opt?.label || 'Hvem er du?';
+
+  document.getElementById('results-title').textContent = 'Din vei: ' + (opt?.label||sub);
+  document.getElementById('results-desc').textContent = data.cards.length + ' kuraterte tilbud i Bergen.';
+
+  // Start her
+  const banner = document.getElementById('start-her-banner');
+  if(data.startHer) {
+    document.getElementById('sh-title').textContent   = data.startHer.title;
+    document.getElementById('sh-text').textContent    = data.startHer.text;
+    document.getElementById('sh-cta-btn').textContent = data.startHer.cta;
+    banner.classList.remove('hidden');
+  } else {
+    banner.classList.add('hidden');
+  }
+
+  // Cards
+  document.getElementById('cards-grid').innerHTML = data.cards.map(c=>`
+    <div class="offer-card">
+      <span class="oc-badge ${c.badge}">${c.cat}</span>
+      <div class="oc-title">${c.title}</div>
+      <div class="oc-desc">${c.desc}</div>
+      <div class="oc-meta">${c.tags.map(t=>`
+        <span class="oc-tag ${t.toLowerCase().startsWith('gratis')?'gratis':t.toLowerCase().includes('terskel')||t.toLowerCase().includes('drop-in')?'lavt':''}">${t}</span>`).join('')}
+      </div>
+      ${c.where?`<div class="oc-where">${c.where}</div>`:''}
+      ${c.modal
+        ? `<button onclick="openModal('${c.modal}')" class="oc-cta ${c.ctaStyle||''}">${c.cta}</button>`
+        : `<a href="${c.href||'#'}" ${c.href?'target="_blank" rel="noopener"':''} class="oc-cta ${c.ctaStyle||''}">${c.cta}</a>`
+      }
+    </div>`).join('');
+
+  const sec = document.getElementById('results-section');
+  sec.classList.remove('hidden');
+  sec.querySelectorAll('.fade-in').forEach(el=>{el.classList.remove('fade-in');void el.offsetWidth;el.classList.add('fade-in');});
+  setTimeout(function() {
+    var top = sec.getBoundingClientRect().top + window.pageYOffset - 72;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }, 80);
+}
+
+// ── Back ──────────────────────────────────────────────────
+function goBack() {
+  document.getElementById('results-section').classList.add('hidden');
+  document.getElementById('step2-panel').classList.remove('hidden');
+  document.querySelectorAll('.age-btn,.need-btn').forEach(b=>b.classList.remove('active'));
+  currentSub = null;
+  setStep(2);
+  var p2 = document.getElementById('step2-panel');
+  var top2 = p2.getBoundingClientRect().top + window.pageYOffset - 72;
+  window.scrollTo({ top: top2, behavior: 'smooth' });
+}
+
+// ── Smooth anchors ────────────────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+  });
+});
+</script>
+<!-- ══════════════════════════ MODAL: Budsjettkalkulator -->
+<div class="modal-overlay" id="modal-budsjettkalkulator" onclick="handleOverlayClick(event)">
+  <div class="modal-box" style="max-width:720px;">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">🧮 Personlig budsjett</div>
+        <div class="modal-sub">Basert på SIFOs referansebudsjett 2025 · OsloMet</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('budsjettkalkulator')">✕</button>
+    </div>
+
+    <!-- STEG 1: HUSSTAND -->
+    <div class="modal-section-label">👥 Steg 1 – Hvem er i husstanden?</div>
+    <div id="bk-members" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;"></div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px;">
+      <button class="bk-add-btn" onclick="bkAdd('voksen_mann')">+ Voksen mann</button>
+      <button class="bk-add-btn" onclick="bkAdd('voksen_kvinne')">+ Voksen kvinne</button>
+      <button class="bk-add-btn" onclick="bkAdd('barn_0_1')">+ Barn 0–1 år</button>
+      <button class="bk-add-btn" onclick="bkAdd('barn_2_5')">+ Barn 2–5 år</button>
+      <button class="bk-add-btn" onclick="bkAdd('barn_6_9')">+ Barn 6–9 år</button>
+      <button class="bk-add-btn" onclick="bkAdd('barn_10_13')">+ Barn 10–13 år</button>
+      <button class="bk-add-btn" onclick="bkAdd('barn_14_17')">+ Barn 14–17 år</button>
+    </div>
+
+    <!-- STEG 2: INNTEKTER -->
+    <div class="modal-section-label" style="margin-top:18px;">💰 Steg 2 – Månedlige inntekter (kr)</div>
+    <div class="bk-input-grid">
+      <div class="bk-input-row"><label>Lønn (etter skatt)</label><input type="number" id="bk-lonn" placeholder="0" oninput="bkCalc()"></div>
+      <div class="bk-input-row"><label>Trygd / NAV-ytelse</label><input type="number" id="bk-trygd" placeholder="0" oninput="bkCalc()"></div>
+      <div class="bk-input-row"><label>Barnebidrag</label><input type="number" id="bk-bidrag" placeholder="0" oninput="bkCalc()"></div>
+      <div class="bk-input-row"><label>Andre inntekter</label><input type="number" id="bk-annet-inn" placeholder="0" oninput="bkCalc()"></div>
+      <div class="bk-input-row" style="grid-column:1/-1;">
+        <label>Barnetrygd 2026 (automatisk)</label>
+        <input type="text" id="bk-barnetrygd-display" readonly
+          style="background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:700;cursor:default;">
+      </div>
+    </div>
+
+    <!-- STEG 3: FASTE UTGIFTER (ikke i SIFO) -->
+    <div class="modal-section-label" style="margin-top:18px;">🏠 Steg 3 – Faste utgifter utenom SIFO (kr/mnd)</div>
+    <p style="font-size:.75rem;color:var(--muted);margin:-6px 0 10px;">Bolig og strøm inngår ikke i SIFOs tall – legg dem inn her.</p>
+    <div class="bk-input-grid">
+      <div class="bk-input-row"><label>Husleie / boliglån</label><input type="number" id="bk-bolig" placeholder="0" oninput="bkCalc()"></div>
+      <div class="bk-input-row"><label>Strøm og oppvarming</label><input type="number" id="bk-strom" placeholder="0" oninput="bkCalc()"></div>
+      <div class="bk-input-row" style="grid-column:1/-1;">
+        <label>Barnehage 2026 (automatisk – kun 0–5 år)</label>
+        <input type="text" id="bk-bhg-display" readonly
+          style="background:var(--sand);border-color:var(--sand-dark);color:var(--text);font-weight:700;cursor:default;">
+      </div>
+      <div class="bk-input-row"><label>Sparing</label><input type="number" id="bk-sparing" placeholder="0" oninput="bkCalc()"></div>
+      <div class="bk-input-row"><label>Andre faste utgifter</label><input type="number" id="bk-annet-ut" placeholder="0" oninput="bkCalc()"></div>
+    </div>
+
+    <!-- RESULTAT -->
+    <div id="bk-result" style="margin-top:20px;"></div>
+
+    <p style="font-size:.7rem;color:var(--muted);margin-top:14px;line-height:1.5;">
+      Tallene er basert på <a href="https://www.oslomet.no/om/sifo/referansebudsjettet" target="_blank" style="color:var(--green);">SIFOs referansebudsjett 2025 (OsloMet)</a>.
+      Budsjettet inkluderer mat, klær, pleie, fritid og transport – men ikke bolig, strøm, helse eller ferie.
+    </p>
+  </div>
+</div>
+
+<style>
+.bk-add-btn {
+  background: var(--green-lt); border: 1.5px solid var(--green);
+  color: var(--green); font-size:.78rem; font-weight:700;
+  padding:6px 12px; border-radius:50px; cursor:pointer;
+  transition: background .15s;
+}
+.bk-add-btn:hover { background:#c8ddd7; }
+.bk-member-tag {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--sand); border:1.5px solid var(--sand-dark);
+  border-radius:50px; padding:5px 12px; font-size:.8rem; font-weight:600;
+}
+.bk-member-tag button {
+  background:none; border:none; cursor:pointer;
+  color:var(--muted); font-size:.85rem; padding:0; line-height:1;
+}
+.bk-input-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+@media(max-width:500px){ .bk-input-grid { grid-template-columns:1fr; } }
+.bk-input-row { display:flex; flex-direction:column; gap:3px; }
+.bk-input-row label { font-size:.75rem; font-weight:700; color:var(--muted); }
+.bk-input-row input {
+  border:1.5px solid var(--sand-dark); border-radius:8px;
+  padding:8px 10px; font-size:.88rem; width:100%; box-sizing:border-box;
+  font-family:inherit;
+}
+.bk-input-row input:focus { outline:none; border-color:var(--green); }
+.bk-sifo-table { width:100%; border-collapse:collapse; font-size:.8rem; margin-top:10px; }
+.bk-sifo-table th { background:var(--green); color:white; padding:7px 10px; text-align:left; font-size:.72rem; }
+.bk-sifo-table td { padding:6px 10px; border-bottom:1px solid var(--sand-dark); }
+.bk-sifo-table tr:last-child td { font-weight:800; background:var(--sand); }
+.bk-result-box {
+  border-radius:var(--r); padding:18px 20px;
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+}
+.bk-result-box.surplus { background:#e8f5e9; border:2px solid #4caf50; }
+.bk-result-box.deficit { background:#fce4ec; border:2px solid #e91e63; }
+.bk-result-box.neutral { background:var(--sand); border:2px solid var(--sand-dark); }
+.bk-result-label { font-size:.85rem; color:var(--muted); }
+.bk-result-amount { font-size:1.6rem; font-weight:900; }
+.bk-result-amount.pos { color:#2e7d32; }
+.bk-result-amount.neg { color:#c62828; }
+.bk-summary-row { display:flex; justify-content:space-between; font-size:.83rem; padding:4px 0; border-bottom:1px solid var(--sand-dark); }
+.bk-summary-row:last-child { border:none; font-weight:800; }
+</style>
+
+<script>
+// ── SIFO 2025 referansetall (kr/mnd per person) ───────────────
+const SIFO_DATA = {
+  voksen_mann:   { label:'Voksen mann',   icon:'👨', mat:4950, klar:1020, pleie:500,  fritid:2350, transport:4070, husholdning:1200 },
+  voksen_kvinne: { label:'Voksen kvinne', icon:'👩', mat:4040, klar:1290, pleie:730,  fritid:2350, transport:4070, husholdning:1200 },
+  barn_0_1:      { label:'Barn 0–1 år',   icon:'👶', mat:1280, klar:720,  pleie:390,  fritid:830,  transport:0,    husholdning:0    },
+  barn_2_5:      { label:'Barn 2–5 år',   icon:'🧒', mat:2210, klar:880,  pleie:390,  fritid:1590, transport:0,    husholdning:120  },
+  barn_6_9:      { label:'Barn 6–9 år',   icon:'🧒', mat:2870, klar:1000, pleie:390,  fritid:2190, transport:0,    husholdning:140  },
+  barn_10_13:    { label:'Barn 10–13 år', icon:'🧑', mat:3440, klar:1200, pleie:430,  fritid:2560, transport:0,    husholdning:140  },
+  barn_14_17:    { label:'Barn 14–17 år', icon:'🧑', mat:4060, klar:1440, pleie:580,  fritid:2810, transport:790,  husholdning:140  },
+};
+
+let bkMembers = [];
+
+function bkAdd(type) {
+  bkMembers.push(type);
+  bkRenderMembers();
+  bkCalc();
+}
+
+function bkRemove(idx) {
+  bkMembers.splice(idx, 1);
+  bkRenderMembers();
+  bkCalc();
+}
+
+function bkRenderMembers() {
+  const el = document.getElementById('bk-members');
+  if (!bkMembers.length) {
+    el.innerHTML = '<span style="font-size:.8rem;color:var(--muted);font-style:italic;">Ingen lagt til ennå – klikk knappene over</span>';
+    return;
+  }
+  el.innerHTML = bkMembers.map((t, i) => {
+    const d = SIFO_DATA[t];
+    return `<span class="bk-member-tag">${d.icon} ${d.label} <button onclick="bkRemove(${i})">✕</button></span>`;
+  }).join('');
+}
+
+function bkVal(id) { return parseFloat(document.getElementById(id).value) || 0; }
+function bkFmt(n) { return n.toLocaleString('nb-NO') + ' kr'; }
+
+function bkCalc() {
+  const result = document.getElementById('bk-result');
+  if (!bkMembers.length) {
+    result.innerHTML = '<p style="font-size:.82rem;color:var(--muted);text-align:center;padding:16px 0;">Legg til husstandsmedlemmer for å se beregningen.</p>';
+    return;
+  }
+
+  // SIFO summer
+  let totMat=0, totKlar=0, totPleie=0, totFritid=0, totTransport=0, totHush=0;
+  bkMembers.forEach(t => {
+    const d = SIFO_DATA[t];
+    totMat       += d.mat;
+    totKlar      += d.klar;
+    totPleie     += d.pleie;
+    totFritid    += d.fritid;
+    totTransport += d.transport;
+    totHush      += d.husholdning;
+  });
+  const totSIFO = totMat + totKlar + totPleie + totFritid + totTransport + totHush;
+
+  // Barnetrygd automatisk: 2 012 kr per barn (0–17 år) · sats 2026
+  const BARNETRYGD_SATS = 2012;
+  const barnTyper = ['barn_0_1','barn_2_5','barn_6_9','barn_10_13','barn_14_17'];
+  const antallBarn = bkMembers.filter(t => barnTyper.includes(t)).length;
+  const innBarnetrygd = antallBarn * BARNETRYGD_SATS;
+  const btDisplay = document.getElementById('bk-barnetrygd-display');
+  if (btDisplay) btDisplay.value = antallBarn > 0
+    ? `${antallBarn} barn × 2 012 kr = ${bkFmt(innBarnetrygd)}`
+    : '0 kr (ingen barn registrert)';
+
+  // Inntekter
+  const innLonn   = bkVal('bk-lonn');
+  const innTrygd  = bkVal('bk-trygd');
+  const innBidrag = bkVal('bk-bidrag');
+  const innAnnet  = bkVal('bk-annet-inn');
+  const totInn    = innLonn + innTrygd + innBidrag + innAnnet + innBarnetrygd;
+
+  // Barnehage 2026: 1 200 kr (1. barn) · 840 kr (2. barn) · gratis fra 3. barn
+  // Gjelder kun barn 0–5 år (barn_0_1 og barn_2_5)
+  const BHG_SATSER = [1200, 840]; // 3. barn og oppover = 0
+  const bhgTyper   = ['barn_0_1', 'barn_2_5'];
+  const antallBhg  = bkMembers.filter(t => bhgTyper.includes(t)).length;
+  let utBhgAuto = 0;
+  const bhgDetalj = [];
+  for (let i = 0; i < antallBhg; i++) {
+    const sats = i < BHG_SATSER.length ? BHG_SATSER[i] : 0;
+    utBhgAuto += sats;
+    bhgDetalj.push(`${i+1}. barn: ${sats > 0 ? sats.toLocaleString('nb-NO') + ' kr' : 'gratis'}`);
+  }
+  const bhgDisplay = document.getElementById('bk-bhg-display');
+  if (bhgDisplay) {
+    if (antallBhg === 0) {
+      bhgDisplay.value = '0 kr (ingen barn 0–5 år registrert)';
+      bhgDisplay.style.color = 'var(--muted)';
+    } else {
+      bhgDisplay.value = bhgDetalj.join(' · ') + ` = ${bkFmt(utBhgAuto)}`;
+      bhgDisplay.style.color = 'var(--text)';
+    }
+  }
+
+  // Andre utgifter
+  const utBolig  = bkVal('bk-bolig');
+  const utStrom  = bkVal('bk-strom');
+  const utSpar   = bkVal('bk-sparing');
+  const utAnnet  = bkVal('bk-annet-ut');
+  const totAndre = utBolig + utStrom + utBhgAuto + utSpar + utAnnet;
+
+  const totUt  = totSIFO + totAndre;
+  const tilOvers = totInn - totUt;
+  const hasMoney = totInn > 0;
+
+  result.innerHTML = `
+    <table class="bk-sifo-table">
+      <thead><tr>
+        <th>Kategori (SIFO 2025)</th>
+        <th style="text-align:right">Kr / mnd</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>🍽️ Mat og drikke</td><td style="text-align:right">${bkFmt(totMat)}</td></tr>
+        <tr><td>👗 Klær og sko</td><td style="text-align:right">${bkFmt(totKlar)}</td></tr>
+        <tr><td>🧴 Personlig pleie</td><td style="text-align:right">${bkFmt(totPleie)}</td></tr>
+        <tr><td>🎮 Lek, fritid og medier</td><td style="text-align:right">${bkFmt(totFritid)}</td></tr>
+        <tr><td>🚌 Transport</td><td style="text-align:right">${bkFmt(totTransport)}</td></tr>
+        <tr><td>🏠 Husholdningsartikler</td><td style="text-align:right">${bkFmt(totHush)}</td></tr>
+        <tr><td>Sum SIFO-utgifter</td><td style="text-align:right">${bkFmt(totSIFO)}</td></tr>
+      </tbody>
+    </table>
+
+    ${hasMoney ? `
+    <div style="margin-top:14px;">
+      <div class="bk-summary-row"><span>💰 Totale inntekter</span><span style="color:var(--green);font-weight:700">${bkFmt(totInn)}</span></div>
+      ${innBarnetrygd > 0 ? `<div class="bk-summary-row" style="font-size:.75rem;color:var(--muted);padding-left:12px;"><span>  inkl. barnetrygd (${antallBarn} barn × 2 012 kr)</span><span>${bkFmt(innBarnetrygd)}</span></div>` : ''}
+      <div class="bk-summary-row"><span>📊 SIFO-utgifter</span><span>– ${bkFmt(totSIFO)}</span></div>
+      <div class="bk-summary-row"><span>🏠 Andre faste utgifter</span><span>– ${bkFmt(totAndre)}</span></div>
+      ${utBhgAuto > 0 ? `<div class="bk-summary-row" style="font-size:.75rem;color:var(--muted);padding-left:12px;"><span>  inkl. barnehage (${bhgDetalj.join(' · ')})</span><span>– ${bkFmt(utBhgAuto)}</span></div>` : ''}
+      <div class="bk-summary-row" style="margin-top:4px;padding-top:8px;border-top:2px solid var(--sand-dark);">
+        <span>Til overs / underskudd</span>
+        <span style="color:${tilOvers>=0?'#2e7d32':'#c62828'}">${tilOvers>=0?'+':''}${bkFmt(tilOvers)}</span>
+      </div>
+    </div>
+    <div class="bk-result-box ${tilOvers>0?'surplus':tilOvers<0?'deficit':'neutral'}" style="margin-top:14px;">
+      <div>
+        <div class="bk-result-label">${tilOvers>=0?'Du har til overs hver måned':'Underskudd hver måned'}</div>
+        <div class="bk-result-amount ${tilOvers>=0?'pos':'neg'}">${tilOvers>=0?'+':''}${bkFmt(tilOvers)}</div>
+      </div>
+      <div style="font-size:2rem">${tilOvers>500?'✅':tilOvers>=0?'⚠️':'🔴'}</div>
+    </div>` : `
+    <div class="modal-tips" style="margin-top:14px;">
+      <div class="modal-tips-title">📊 SIFO-anslått forbruk for din husstand</div>
+      <p style="font-size:.82rem;margin:6px 0 0;">Anslått månedlig forbruk: <strong>${bkFmt(totSIFO)}</strong><br>
+      Legg inn inntekter i Steg 2 for å se hva du har til overs.</p>
+    </div>`}
+  `;
+}
+
+// Init
+bkRenderMembers();
+bkCalc();
+</script>
+
+<!-- ══════════════════════════ MODAL: Mat -->
+<div class="modal-overlay" id="modal-mat" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">🍽️ Mat i Bergen</div>
+        <div class="modal-sub">Marked · Restauranter · Gratis måltider · Studentmat</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('mat')">✕</button>
+    </div>
+
+    <div class="modal-section-label">🐟 Marked og råvarer</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Marked</span>
+      <div class="mv-body">
+        <div class="mv-title">Fisketorget – Bergens hjerte</div>
+        <div class="mv-desc">Levende fiskemarked med fersk sjømat, lokale råvarer og god atmosfære. Åpent daglig – et must.</div>
+        <div class="mv-where">📍 Torget, Bergen sentrum</div>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🍴 Lokale favoritter</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Restaurant</span>
+      <div class="mv-body">
+        <div class="mv-title">Bryggen Tracteursted</div>
+        <div class="mv-desc">Historisk restaurant i Bryggen-bygningene. Norsk husmannskost i unike omgivelser.</div>
+        <div class="mv-where">📍 Bryggen, Bergen sentrum</div>
+        <a href="https://www.bryggentracteursted.no/" target="_blank" rel="noopener" class="mv-link">bryggentracteursted.no ↗</a>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Marked</span>
+      <div class="mv-body">
+        <div class="mv-title">Mathallen Festplassen</div>
+        <div class="mv-desc">Innendørs matmarked med street food, spesialiteter og lokale produsenter. Bra for en rask lunsj.</div>
+        <div class="mv-where">📍 Festplassen, Bergen sentrum</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Kafé</span>
+      <div class="mv-body">
+        <div class="mv-title">Colonialen – mat og deli</div>
+        <div class="mv-desc">Delikatesse, bakst og kaffe. En av Bergens mest elskede matnisjer.</div>
+        <div class="mv-where">📍 Kong Oscars gate 44</div>
+        <a href="https://www.colonialen.no/" target="_blank" rel="noopener" class="mv-link">colonialen.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🎓 Studentvennlig mat</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-okonomi">Rimelig</span>
+      <div class="mv-body">
+        <div class="mv-title">SiB Kafé – subsidiert studentmat</div>
+        <div class="mv-desc">Rimelig og næringsrik mat for studenter. Lunsjmeny hverdager til laveste priser i byen.</div>
+        <div class="mv-where">📍 Parkveien 1 og flere campus</div>
+        <a href="https://www.sib.no/mat-og-kafeer" target="_blank" rel="noopener" class="mv-link">sib.no/mat-og-kafeer ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🤝 Gratis mat</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-sosialt">Gratis</span>
+      <div class="mv-body">
+        <div class="mv-title">Kirkens Bymisjon – Åpen dør</div>
+        <div class="mv-desc">Varm mat, kaffe og menneskelig kontakt uten krav. Åpent for alle, alle dager kl. 10–20.</div>
+        <div class="mv-where">📍 Nygårdsgaten 26</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ MODAL: Drikke -->
+<div class="modal-overlay" id="modal-drikke" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">🍺 Drikke i Bergen</div>
+        <div class="modal-sub">Kafé · Siderbar · Pub · Vinbar</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('drikke')">✕</button>
+    </div>
+
+    <div class="modal-section-label">☕ Kaffe og kafé</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Kafé</span>
+      <div class="mv-body">
+        <div class="mv-title">Pascal – ikonisk konditori</div>
+        <div class="mv-desc">Bergens mest kjente konditori og kafé. Croissanter, kaffe og atmosfære siden 1954.</div>
+        <div class="mv-where">📍 Nedre Fjøsangerveien 2 og sentrum</div>
+        <a href="https://pascal.no/" target="_blank" rel="noopener" class="mv-link">pascal.no ↗</a>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Kafé</span>
+      <div class="mv-body">
+        <div class="mv-title">Kafé Kippers – spesialkaffe</div>
+        <div class="mv-desc">Populær kafé med fokus på spesialkaffe og en rolig atmosfære. Favoritt blant studenter og frilansere.</div>
+        <div class="mv-where">📍 Georgernes Verft 12, Sandviken</div>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🍏 Sider og lokal drikke</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Siderbar</span>
+      <div class="mv-body">
+        <div class="mv-title">Siderbar Bergen – ny og lavterskel</div>
+        <div class="mv-desc">Norsk sider fra Hardanger i fokus. Chill stemning, 18+. Et av Bergens mest spennende nye steder.</div>
+        <div class="mv-where">📍 Kong Oscars gate 11</div>
+        <a href="https://www.siderbar.no/" target="_blank" rel="noopener" class="mv-link">siderbar.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🍺 Pub og bar</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Pub</span>
+      <div class="mv-body">
+        <div class="mv-title">Ølhallen – Bergens eldste ølbar</div>
+        <div class="mv-desc">Historisk ølstue fra 1930 med over 50 norske og internasjonale fattøl. Unik Bergen-opplevelse.</div>
+        <div class="mv-where">📍 Vagsgaten 2, Bergen sentrum</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Bar</span>
+      <div class="mv-body">
+        <div class="mv-title">Vinyl – Plater & øl</div>
+        <div class="mv-desc">Chill bar med musikkfokus. God øl, avslappet stemning og god musikk i bakgrunnen.</div>
+        <div class="mv-where">📍 Kong Oscars gate 8</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Pub</span>
+      <div class="mv-body">
+        <div class="mv-title">Folk & Røvere</div>
+        <div class="mv-desc">Folksom og sosial pub. Stor uteservering og bred gjestekrets. Godt for en kveld med venner.</div>
+        <div class="mv-where">📍 Sparebanksgaten 4</div>
+      </div>
+    </div>
+
+    <!-- PREMIUM WHISKY CARD -->
+    <div style="margin-top:22px;background:linear-gradient(135deg,#1a1a2e 0%,#2d1b0e 60%,#3d2408 100%);border-radius:14px;padding:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-20px;right:-20px;font-size:5rem;opacity:.08;pointer-events:none;">🥃</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+        <span style="background:rgba(255,215,0,.15);border:1px solid rgba(255,215,0,.4);color:#f0c060;font-size:.65rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:20px;">✦ Premium</span>
+        <span style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);font-size:.65rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:3px 10px;border-radius:20px;">3–5 timer · 25+ · Par / gruppe</span>
+      </div>
+      <div style="font-size:1.05rem;font-weight:800;color:white;margin-bottom:4px;">Whisky-rute Bergen</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.6);margin-bottom:14px;line-height:1.5;">
+        En kuratert kveld i tre akter – progresjon i smak, ikke promille. Start kl. 17–18.
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <div style="background:rgba(255,215,0,.2);border:1px solid rgba(255,215,0,.3);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.7rem;font-weight:800;color:#f0c060;">1</div>
+          <div><div style="font-size:.82rem;font-weight:700;color:#f0c060;">Colonialen Litteraturhuset</div><div style="font-size:.75rem;color:rgba(255,255,255,.55);">Mild Speyside / Irish · Kalibrering av smak · 45–60 min</div></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <div style="background:rgba(255,215,0,.2);border:1px solid rgba(255,215,0,.3);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.7rem;font-weight:800;color:#f0c060;">2</div>
+          <div><div style="font-size:.82rem;font-weight:700;color:#f0c060;">Amundsen Bar & Bistro</div><div style="font-size:.75rem;color:rgba(255,255,255,.55);">1000+ whiskyer · Smakstrapp Speyside→Highland→Islay · 1,5–2 t</div></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <div style="background:rgba(255,215,0,.2);border:1px solid rgba(255,215,0,.3);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.7rem;font-weight:800;color:#f0c060;">3</div>
+          <div><div style="font-size:.82rem;font-weight:700;color:#f0c060;">No Stress</div><div style="font-size:.75rem;color:rgba(255,255,255,.55);">Cocktail / enkel whisky · Sosial landing · 60–90 min</div></div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1);">
+        <div style="font-size:.72rem;color:rgba(255,255,255,.4);">💰 400–900 kr/person · Maks 3–5 dammer totalt</div>
+        <button onclick="openModal('whisky')" style="background:linear-gradient(135deg,#c8922a,#f0c060);border:none;color:#1a1a2e;font-size:.78rem;font-weight:800;padding:8px 18px;border-radius:50px;cursor:pointer;letter-spacing:.3px;">Se full rute →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ MODAL: Whisky-rute -->
+<div class="modal-overlay" id="modal-whisky" onclick="handleOverlayClick(event)">
+  <div class="modal-box" style="max-width:620px;background:#111827;">
+    <div class="modal-header" style="border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:16px;margin-bottom:0;">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span style="background:rgba(255,215,0,.15);border:1px solid rgba(255,215,0,.4);color:#f0c060;font-size:.65rem;font-weight:800;letter-spacing:1px;padding:3px 10px;border-radius:20px;text-transform:uppercase;">✦ Premium Kveld</span>
+        </div>
+        <div style="font-size:1.3rem;font-weight:800;color:white;">🥃 Whisky-rute Bergen</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,.5);margin-top:3px;">3–5 timer · Optimal start kl. 17:00–18:00 · 25+ · Par / små grupper</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('whisky')" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);">✕</button>
+    </div>
+
+    <!-- RUTE -->
+    <div style="padding-top:20px;">
+      <!-- Steg 1 -->
+      <div style="display:flex;gap:14px;margin-bottom:20px;">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+          <div style="background:linear-gradient(135deg,#c8922a,#f0c060);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;color:#1a1a2e;font-size:.9rem;">1</div>
+          <div style="width:2px;flex:1;background:rgba(255,215,0,.2);margin:6px 0;min-height:40px;"></div>
+        </div>
+        <div style="padding-bottom:20px;">
+          <div style="font-size:.65rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#f0c060;margin-bottom:3px;">Start · Lett inngang · 45–60 min</div>
+          <div style="font-size:1rem;font-weight:800;color:white;margin-bottom:4px;">Colonialen Litteraturhuset</div>
+          <div style="font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.55;margin-bottom:8px;">Rolig atmosfære som kalibrerer smaksløken. Velg en mild Speyside eller Irish. Gjerne lett mat først – grunnlaget for god whiskykveld legges her.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:.7rem;padding:3px 9px;border-radius:20px;">Speyside</span>
+            <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:.7rem;padding:3px 9px;border-radius:20px;">Irish</span>
+            <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:.7rem;padding:3px 9px;border-radius:20px;">Mild start</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Steg 2 -->
+      <div style="display:flex;gap:14px;margin-bottom:20px;">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+          <div style="background:linear-gradient(135deg,#c8922a,#f0c060);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;color:#1a1a2e;font-size:.9rem;">2</div>
+          <div style="width:2px;flex:1;background:rgba(255,215,0,.2);margin:6px 0;min-height:40px;"></div>
+        </div>
+        <div style="padding-bottom:20px;">
+          <div style="font-size:.65rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#f0c060;margin-bottom:3px;">Kjerne · Hovedopplevelse · 1,5–2 timer</div>
+          <div style="font-size:1rem;font-weight:800;color:white;margin-bottom:4px;">Amundsen Bar & Bistro</div>
+          <div style="font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.55;margin-bottom:10px;">1000+ whiskyer. Be bartender om en «smakstrapp» – tre glass i stigende intensitet. Legg til én overraskelse fra bartenderen.</div>
+          <div style="background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);border-radius:10px;padding:12px 14px;margin-bottom:8px;">
+            <div style="font-size:.7rem;font-weight:800;color:#f0c060;letter-spacing:.5px;margin-bottom:8px;">ANBEFALT PROGRESJON</div>
+            <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+              <span style="background:rgba(255,255,255,.1);color:white;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;">① Fruktig</span>
+              <span style="color:rgba(255,255,255,.4);font-size:.75rem;">Speyside – søt og tilgjengelig</span>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+              <span style="background:rgba(255,255,255,.1);color:white;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;">② Krydret</span>
+              <span style="color:rgba(255,255,255,.4);font-size:.75rem;">Highland – karakter og dybde</span>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <span style="background:rgba(255,255,255,.1);color:white;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;">③ Røyk</span>
+              <span style="color:rgba(255,255,255,.4);font-size:.75rem;">Islay – intens, mørk, mineralsk</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:.7rem;padding:3px 9px;border-radius:20px;">1000+ whiskyer</span>
+            <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:.7rem;padding:3px 9px;border-radius:20px;">Book bord</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Steg 3 -->
+      <div style="display:flex;gap:14px;margin-bottom:20px;">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+          <div style="background:linear-gradient(135deg,#c8922a,#f0c060);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;color:#1a1a2e;font-size:.9rem;">3</div>
+        </div>
+        <div>
+          <div style="font-size:.65rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#f0c060;margin-bottom:3px;">Avslutning · Sosial landing · 60–90 min</div>
+          <div style="font-size:1rem;font-weight:800;color:white;margin-bottom:4px;">No Stress</div>
+          <div style="font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.55;margin-bottom:8px;">Nedtrapping med cocktail eller enkel whisky. Mer sosial stemning hindrer smakstretthet og gir en myk avslutning på kvelden.</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:.7rem;padding:3px 9px;border-radius:20px;">Cocktail</span>
+            <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:.7rem;padding:3px 9px;border-radius:20px;">Nedtrapping</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tips -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;margin-bottom:16px;">
+        <div style="font-size:.72rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#f0c060;margin-bottom:10px;">🧠 Smaksstrategi</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+          <div style="font-size:.76rem;color:rgba(255,255,255,.6);">✓ Maks 3–5 damer totalt</div>
+          <div style="font-size:.76rem;color:rgba(255,255,255,.6);">✓ Øk intensitet gradvis</div>
+          <div style="font-size:.76rem;color:rgba(255,255,255,.6);">✓ Drikk vann mellom hver</div>
+          <div style="font-size:.76rem;color:rgba(255,255,255,.6);">✗ Ikke start med røyk</div>
+          <div style="font-size:.76rem;color:rgba(255,255,255,.6);">✓ Spis lett før start</div>
+          <div style="font-size:.76rem;color:rgba(255,255,255,.6);">✓ Del dammer i gruppe</div>
+        </div>
+      </div>
+
+      <!-- Kostnad -->
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);border-radius:12px;">
+        <div>
+          <div style="font-size:.7rem;color:#f0c060;font-weight:700;letter-spacing:.5px;text-transform:uppercase;">Estimert kostnad</div>
+          <div style="font-size:1.1rem;font-weight:800;color:white;">400 – 900 kr</div>
+          <div style="font-size:.72rem;color:rgba(255,255,255,.4);">per person · 120–250 kr per dram</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:.7rem;color:rgba(255,255,255,.4);margin-bottom:2px;">Tagging</div>
+          <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;">
+            <span style="background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);font-size:.65rem;padding:2px 7px;border-radius:20px;">premium</span>
+            <span style="background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);font-size:.65rem;padding:2px 7px;border-radius:20px;">kveld</span>
+            <span style="background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);font-size:.65rem;padding:2px 7px;border-radius:20px;">smak</span>
+            <span style="background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);font-size:.65rem;padding:2px 7px;border-radius:20px;">par</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ MODAL: Musikk -->
+<div class="modal-overlay" id="modal-musikk" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">🎵 Musikk i Bergen</div>
+        <div class="modal-sub">Konserter · Klubb · Klassisk · Gratis</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('musikk')">✕</button>
+    </div>
+
+    <div class="modal-section-label">🎸 Live og konsert</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Konsert</span>
+      <div class="mv-body">
+        <div class="mv-title">Hulen – Bergens ikoniske rockeklubb</div>
+        <div class="mv-desc">Konsertscene i en grotte under Nygårdshøyden. Rock, metal, indie og mer. 18+, 3–5 konserter i uken.</div>
+        <div class="mv-where">📍 Olaf Ryes vei 48</div>
+        <a href="https://www.hulen.no/" target="_blank" rel="noopener" class="mv-link">Se program på hulen.no ↗</a>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Studentklubb</span>
+      <div class="mv-body">
+        <div class="mv-title">Kvarteret – studentkulturens hjerte</div>
+        <div class="mv-desc">Konserter, DJ-kvelder og kulturarrangementer for studenter og unge. Uformelt og rimelig.</div>
+        <div class="mv-where">📍 Olaf Ryes vei 48</div>
+        <a href="https://kvarteret.no/" target="_blank" rel="noopener" class="mv-link">kvarteret.no ↗</a>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Scene</span>
+      <div class="mv-body">
+        <div class="mv-title">USF Verftet – kultur og musikk</div>
+        <div class="mv-desc">Kulturhus i gammel sardinfabrikk. Konserter, utstillinger og arrangementer med variert program.</div>
+        <div class="mv-where">📍 Georgernes Verft 12, Sandviken</div>
+        <a href="https://www.usf.no/" target="_blank" rel="noopener" class="mv-link">usf.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Blues &amp; Live</span>
+      <div class="mv-body">
+        <div class="mv-title">Madam Felle – intimscene på Bryggen</div>
+        <div class="mv-desc">Bergens koseligste konsertscene med mat og drikke. Konserter 4–5 dager i uken – blues, rock og jamsession hver torsdag. Ca. 80 sitteplasser.</div>
+        <div class="mv-where">📍 Bryggen 43, Bergen sentrum</div>
+        <a href="https://madamfelle.no/" target="_blank" rel="noopener" class="mv-link">Se konsertprogram på madamfelle.no ↗</a>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Scene</span>
+      <div class="mv-body">
+        <div class="mv-title">Ole Bull Scene – midt i hjertet av Bergen</div>
+        <div class="mv-desc">Teater- og konsertscene med 486 plasser ved Ole Bulls plass. Konserter, stand-up og forestillinger – et kulturelt midtpunkt i Bergen sentrum.</div>
+        <div class="mv-where">📍 Øvre Ole Bullsplass 3, Bergen sentrum</div>
+        <a href="https://olebullhuset.no/" target="_blank" rel="noopener" class="mv-link">Se program på olebullhuset.no ↗</a>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Storscene</span>
+      <div class="mv-body">
+        <div class="mv-title">Forum Scene – hele Bergens kulturarena</div>
+        <div class="mv-desc">Én av Norges mest imponerende konsert- og kulturarenaer, gjenåpnet 2019 etter full renovasjon. Storscene ved Danmarksplass – nær Bybane og buss.</div>
+        <div class="mv-where">📍 Danmarksplass, Bergen</div>
+        <a href="https://www.forumscene.no/" target="_blank" rel="noopener" class="mv-link">Se program på forumscene.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🎻 Klassisk og storscene</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Konserthus</span>
+      <div class="mv-body">
+        <div class="mv-title">Grieghallen – Bergens konserthus</div>
+        <div class="mv-desc">Hjemsted for Bergen Filharmoniske Orkester. Klassisk, jazz og pop på Nordens fremste konsertscener.</div>
+        <div class="mv-where">📍 Edvard Griegs plass 1</div>
+        <a href="https://www.grieghallen.no/" target="_blank" rel="noopener" class="mv-link">grieghallen.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🌳 Gratis musikk</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-sosialt">Gratis</span>
+      <div class="mv-body">
+        <div class="mv-title">Musikkpaviljongen – sommerkonserter</div>
+        <div class="mv-desc">Gratis utendørskonserter i Byparken hele sommeren. Uformelt, familievennlig og folksomt.</div>
+        <div class="mv-where">📍 Byparken, Bergen sentrum</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-sosialt">Gratis</span>
+      <div class="mv-body">
+        <div class="mv-title">Bergen bibliotek – gratis arrangement</div>
+        <div class="mv-desc">Konserter, foredrag og kulturarrangementer – gratis og uten billett. Sjekk ukentlig program.</div>
+        <div class="mv-where">📍 Strømgaten 6 · Man–lør</div>
+        <a href="https://bergenbibliotek.no/" target="_blank" rel="noopener" class="mv-link">bergenbibliotek.no ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ MODAL: Kultur -->
+<div class="modal-overlay" id="modal-kultur" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">🎭 Kultur i Bergen</div>
+        <div class="modal-sub">Museum · Teater · Kunst · Litteratur · Gratis</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('kultur')">✕</button>
+    </div>
+
+    <div class="modal-section-label">🏛️ Museum og historie</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">UNESCO</span>
+      <div class="mv-body">
+        <div class="mv-title">Bryggen – verdensarv og historisk smau</div>
+        <div class="mv-desc">Hansatidens trebebyggelse. Gratis å vandre rundt – museer og utstillinger inne i bygningene.</div>
+        <div class="mv-where">📍 Bryggen, Bergen sentrum</div>
+        <a href="https://stiftelsenbryggen.no/" target="_blank" rel="noopener" class="mv-link">stiftelsenbryggen.no ↗</a>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Museum</span>
+      <div class="mv-body">
+        <div class="mv-title">Rosenkrantztårnet – middelalder i sentrum</div>
+        <div class="mv-desc">Middelalderborg i Bergenhus festning med panoramautsikt over Vågen og Bryggen.</div>
+        <div class="mv-where">📍 Bergenhus festning</div>
+        <a href="https://bymuseet.no/museum/rosekrantztarnet/" target="_blank" rel="noopener" class="mv-link">bymuseet.no ↗</a>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Museum</span>
+      <div class="mv-body">
+        <div class="mv-title">Bergen maritime museum</div>
+        <div class="mv-desc">Sjøfartshistorie fra Vestlandet – skip, handelsruter og livet langs kysten. Gratis for barn.</div>
+        <div class="mv-where">📍 Haakon Sheteligs pl. 15</div>
+        <a href="https://sjofartsmuseum.museumvest.no/" target="_blank" rel="noopener" class="mv-link">sjofartsmuseum.museumvest.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🖼️ Kunst og utstillinger</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Kunstmuseum</span>
+      <div class="mv-body">
+        <div class="mv-title">KODE – Nordens største kunstmuseum</div>
+        <div class="mv-desc">Fire bygg med Munch, Picasso, Klee og norsk kunsthistorie. KODE Lysverket og Permanenten.</div>
+        <div class="mv-where">📍 Rasmus Meyers allé, Bergen sentrum</div>
+        <a href="https://www.kodebergen.no/" target="_blank" rel="noopener" class="mv-link">kodebergen.no ↗</a>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Kunsthall</span>
+      <div class="mv-body">
+        <div class="mv-title">Bergen Kunsthall – samtidskunst</div>
+        <div class="mv-desc">Skiftende utstillinger med lokale og internasjonale samtidskunstnere. Alltid noe nytt.</div>
+        <div class="mv-where">📍 Rasmus Meyers allé 5</div>
+        <a href="https://www.kunsthall.no/" target="_blank" rel="noopener" class="mv-link">kunsthall.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🎪 Scene og teater</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Teater</span>
+      <div class="mv-body">
+        <div class="mv-title">Den Nationale Scene</div>
+        <div class="mv-desc">Bergens hovedteater med et bredt repertoar fra klassiker til samtid. Et kulturelt midtpunkt.</div>
+        <div class="mv-where">📍 Engen 1, Bergen sentrum</div>
+        <a href="https://www.dns.no/" target="_blank" rel="noopener" class="mv-link">dns.no ↗</a>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Kulturhus</span>
+      <div class="mv-body">
+        <div class="mv-title">USF Verftet – tverrkunstnerisk scene</div>
+        <div class="mv-desc">Dans, teater, konsert og utstilling i historisk sardinfabrikk. Alltid et variert program.</div>
+        <div class="mv-where">📍 Georgernes Verft 12, Sandviken</div>
+        <a href="https://www.usf.no/" target="_blank" rel="noopener" class="mv-link">usf.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-section-label">📚 Litteratur og læring</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-sosialt">Gratis</span>
+      <div class="mv-body">
+        <div class="mv-title">Bergen bibliotek – gratis kulturarrangement</div>
+        <div class="mv-desc">Forfatterlesninger, debatter, foredrag og utstillinger – gratis, åpent for alle, hele året.</div>
+        <div class="mv-where">📍 Strømgaten 6 · Man–lør</div>
+        <a href="https://bergenbibliotek.no/" target="_blank" rel="noopener" class="mv-link">bergenbibliotek.no ↗</a>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Festival</span>
+      <div class="mv-body">
+        <div class="mv-title">Bergen Internasjonale Kultursenter</div>
+        <div class="mv-desc">Flerkulturelt kulturhus med dans, musikk og utstillinger fra hele verden. Åpent for alle.</div>
+        <div class="mv-where">📍 Kong Oscars gate 15</div>
+        <a href="https://bergeninternasjonalekultursenter.no/" target="_blank" rel="noopener" class="mv-link">bergeninternasjonalekultursenter.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-section-label">✨ Spesielle opplevelser</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Museum</span>
+      <div class="mv-body">
+        <div class="mv-title">Trollmuseet Bergen</div>
+        <div class="mv-desc">Norges første interaktive trollmuseum – magisk og unik opplevelse for alle aldre. Dypdykk i norsk trollmytologi og folklore.</div>
+        <div class="mv-where">📍 Bergen sentrum</div>
+        <a href="https://bergen.trollmuseum.no/" target="_blank" rel="noopener" class="mv-link">bergen.trollmuseum.no ↗</a>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Friluftskultur</span>
+      <div class="mv-body">
+        <div class="mv-title">Permisjonsstien</div>
+        <div class="mv-desc">Kunststi og kulturopplevelse i naturen – kunst møter friluftsliv langs merkede stier i Bergensregionen.</div>
+        <div class="mv-where">📍 Bergensregionen</div>
+        <a href="https://ut.no/turforslag/116789021/permisjonsstien-til-sandvikspilen-og-stoltzetoppen" target="_blank" rel="noopener" class="mv-link">Se turforslag på ut.no ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ MODAL: UTELIV -->
+<div class="modal-overlay" id="modal-uteliv" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">🌙 Uteliv i Bergen</div>
+        <div class="modal-sub">Kafé · Bar · Studentbarer · Klubb · Studiebyen</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('uteliv')">✕</button>
+    </div>
+
+    <!-- UTELIV HERO BANNER -->
+    <div class="uteliv-hero">
+      <div class="uteliv-hero-glow"></div>
+      <div class="uteliv-drinks">
+        <span class="ud ud1">🍺</span>
+        <span class="ud ud2">🥂</span>
+        <span class="ud ud3">🍷</span>
+        <span class="ud ud4">🍹</span>
+        <span class="ud ud5">🥃</span>
+      </div>
+      <div class="uteliv-hero-content">
+        <div class="uteliv-hero-eyebrow">✦ Studiebyen Bergen</div>
+        <div class="uteliv-hero-title">Kafé &amp; Uteliv</div>
+        <div class="uteliv-hero-sub">Fra studentbar til sentrumsklubber – alt du trenger for en god kveld ute i Bergen</div>
+        <a href="https://www.utdanningibergen.no/studiebyen-bergen/kafe-og-uteliv/utesteder-og-barer" target="_blank" rel="noopener" class="uteliv-hero-cta">Se full oversikt på utdanningibergen.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🎓 Studentbarer (lav terskel)</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Studentbar</span>
+      <div class="mv-body">
+        <div class="mv-title">Hulen – legendarisk studentbar</div>
+        <div class="mv-desc">Bergenslegenden under bakken på Nygårdshøyden. Konserter, dans og rimelig øl. En av Norges eldste studentbarer.</div>
+        <div class="mv-where">📍 Olaf Ryes vei 47</div>
+        <a href="https://www.hulen.no/" target="_blank" rel="noopener" class="mv-link">Se program på hulen.no ↗</a>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Studenthus</span>
+      <div class="mv-body">
+        <div class="mv-title">Kvarteret – studenthus</div>
+        <div class="mv-desc">Bar, konserter og dans for studenter. 18+ tilgjengelig. Uformelt og rimelig – beste alternativet hvis du er student.</div>
+        <div class="mv-where">📍 Olaf Ryes vei 48</div>
+        <a href="https://kvarteret.no/" target="_blank" rel="noopener" class="mv-link">Se hva som skjer på kvarteret.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🍺 Barer og puber i sentrum</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Pub</span>
+      <div class="mv-body">
+        <div class="mv-title">Fotballpuben</div>
+        <div class="mv-desc">Sport, øl og enkel stemning. Lettere å komme inn tidlig på kvelden.</div>
+        <div class="mv-where">📍 Vaskerelven 1 · Tlf +47 55 33 66 66</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Bar</span>
+      <div class="mv-body">
+        <div class="mv-title">Folk &amp; Røvere – sosial pub</div>
+        <div class="mv-desc">Folksom og sosial pub med bred gjestekrets. Bra early-evening valg.</div>
+        <div class="mv-where">📍 Sparebanksgaten 4 · Tlf +47 57 00 14 99</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Bar</span>
+      <div class="mv-body">
+        <div class="mv-title">Vinyl – Plater &amp; øl</div>
+        <div class="mv-desc">Chill stemning med musikkfokus. Mer henging enn fest – hyggelig og romslig.</div>
+        <div class="mv-where">📍 Kong Oscars gate 8</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Siderbar</span>
+      <div class="mv-body">
+        <div class="mv-title">Siderbar Bergen</div>
+        <div class="mv-desc">Fokus på norsk sider fra Hardanger. Chill café/bar-vibe. Godt valg for yngre gjester.</div>
+        <div class="mv-where">📍 Kong Oscars gate 11</div>
+        <a href="https://www.siderbar.no/" target="_blank" rel="noopener" class="mv-link">siderbar.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🏠 Kulturhus med uteliv</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Kulturhus</span>
+      <div class="mv-body">
+        <div class="mv-title">Kulturhuset i Bergen</div>
+        <div class="mv-desc">Konserter, teater, kurs og sosialt samvær i et uformelt og åpent kulturhus midt i Bergen. Lavterskel for alle – variert program gjennom hele året.</div>
+        <div class="mv-where">📍 Vaskerelven 8, Bergen sentrum</div>
+        <a href="https://www.kulturhusetibergen.no" target="_blank" rel="noopener" class="mv-link">Se program på kulturhusetibergen.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🕺 Klubb og dans</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Klubb</span>
+      <div class="mv-body">
+        <div class="mv-title">Amundsen Bar</div>
+        <div class="mv-desc">Populær bar med DJ og dansegulv. Sentral beliggenhet. 20-årsgrense fra kl. 22.</div>
+        <div class="mv-where">📍 Bergen sentrum</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Nattklubb</span>
+      <div class="mv-body">
+        <div class="mv-title">No Stress</div>
+        <div class="mv-desc">Bred musikk og romslig gulv. Populær blant studenter og unge voksne på helg.</div>
+        <div class="mv-where">📍 Bergen sentrum</div>
+      </div>
+    </div>
+
+    <div class="modal-tips">
+      <div class="modal-tips-title">💡 Tips for utelivet i Bergen</div>
+      <ul>
+        <li>Gå ut <strong>tidlig</strong> – før kl. 22 er terskelen lavest for under 20</li>
+        <li><strong>Studentbarer</strong> (Hulen, Kvarteret) krever ofte studentbevis og er billigst</li>
+        <li>Sjekk <strong>utdanningibergen.no</strong> for oppdatert oversikt over alle steder</li>
+        <li>Pop-up 18+ events annonseres ofte på Instagram kort tid i forveien</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ MODAL: Aktiv senior -->
+<div class="modal-overlay" id="modal-aktivsenior" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">🧭 Din vei – Aktiv senior i Bergen</div>
+        <div class="modal-sub">Møteplasser · Trening · Natur · Kultur · Frivillighet</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('aktivsenior')">✕</button>
+    </div>
+
+    <div class="modal-section-label">💬 Sosiale møteplasser (lav terskel)</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-sosialt">Seniorsenter</span>
+      <div class="mv-body">
+        <div class="mv-title">Danckert Krohn seniorsenter</div>
+        <div class="mv-desc">Klassisk samlingssted midt i sentrum. Kurs, kafé, aktiviteter og foredrag. Fast holdepunkt i hverdagen.</div>
+        <div class="mv-where">📍 Bergen sentrum</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-sosialt">Seniorsenter</span>
+      <div class="mv-body">
+        <div class="mv-title">Sandviken Seniorsenter</div>
+        <div class="mv-desc">Mindre og mer lokalt – godt for faste relasjoner og daglige rutiner.</div>
+        <div class="mv-where">📍 Sandviken</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-sosialt">Frivillighet</span>
+      <div class="mv-body">
+        <div class="mv-title">Røde Kors-huset Bergen</div>
+        <div class="mv-desc">Frivillighet, møteplasser og lavterskeltilbud. Mulighet for å bidra selv – gir struktur og mening.</div>
+        <div class="mv-where">📍 Bergen sentrum</div>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🏃 Fysisk aktivitet (helse + struktur)</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-helse">Trening</span>
+      <div class="mv-body">
+        <div class="mv-title">STERK Senior – gruppetreninger</div>
+        <div class="mv-desc">Strukturert trening med fokus på styrke, balanse og funksjon. Tilpasset eldre kropp og behov.</div>
+        <div class="mv-where">📍 Ulike lokasjoner i Bergen</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-helse">Svømming</span>
+      <div class="mv-body">
+        <div class="mv-title">AdO Arena – svømming</div>
+        <div class="mv-desc">Skånsom og effektiv trening. Egne seniorsvømmtider. Godt for ledd og kondisjon.</div>
+        <div class="mv-where">📍 Strømsveien 1, Bergen</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Turgrupper</span>
+      <div class="mv-body">
+        <div class="mv-title">Kommunale og frivillige turgrupper</div>
+        <div class="mv-desc">Særlig utbredt i bydeler som Fana og Ytrebygda. Kombineres gjerne med kaffe og sosialt etterpå.</div>
+        <div class="mv-where">📍 Alle bydeler – sjekk din bydel</div>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🌿 Natur og lavkost opplevelser</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Byvandring</span>
+      <div class="mv-body">
+        <div class="mv-title">Bryggen – rolige rusleturer</div>
+        <div class="mv-desc">Historisk ramme, flat terreng og alltid noe å se. Perfekt for en daglig spasertur.</div>
+        <div class="mv-where">📍 Bryggen, Bergen sentrum</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Friluft</span>
+      <div class="mv-body">
+        <div class="mv-title">Fjellturer – Fløyen, Ulriken og nærområder</div>
+        <div class="mv-desc">Ofte organisert i grupper. «Turglede» er en egen seniortrend i Bergen – og den mest brukte aktiv-senior-modellen.</div>
+        <div class="mv-where">📍 Fløyen, Ulriken, lokale nærområder</div>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🎭 Kultur og læring (mentalt aktiv)</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Foredrag</span>
+      <div class="mv-body">
+        <div class="mv-title">Senioruniversitet (f.eks. Fana)</div>
+        <div class="mv-desc">Foredrag 1–2 ganger i måneden om vitenskap, historie og samfunn. Stimulerer nysgjerrighet og sosialt samvær.</div>
+        <div class="mv-where">📍 Fana og andre bydeler</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Vitenskap</span>
+      <div class="mv-body">
+        <div class="mv-title">VilVite – Bergen Science Center</div>
+        <div class="mv-desc">Ikke bare for barn. Bra for nysgjerrighet og sosial aktivitet – spesielt på hverdager.</div>
+        <div class="mv-where">📍 Thormøhlens gate 51</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Arrangement</span>
+      <div class="mv-body">
+        <div class="mv-title">Bergen Sanitetsforening</div>
+        <div class="mv-desc">Lesing, samtaler, temamøter og «Senior i fokus»-arrangementer. Variert og inkluderende.</div>
+        <div class="mv-where">📍 Bergen – se lokalt program</div>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🤝 Frivillighet (gir mening)</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-sosialt">Frivillig</span>
+      <div class="mv-body">
+        <div class="mv-title">Aktivitetsvenn / besøksvenn</div>
+        <div class="mv-desc">Via kommunen eller Røde Kors. Å bidra gir struktur og sosial verdi – og er blant det seniorer opplever som mest givende.</div>
+        <div class="mv-where">📍 Via Bergen kommune eller Røde Kors Bergen</div>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🎳 Sosial + lett aktivitet (uformell)</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-sosialt">Bowling</span>
+      <div class="mv-body">
+        <div class="mv-title">Åsane Senior Bowlere</div>
+        <div class="mv-desc">Sosial aktivitet med lav terskel. Fast møtepunkt og hyggelig fellesskap.</div>
+        <div class="mv-where">📍 Åsane, Bergen</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-sosialt">Lokalmiljø</span>
+      <div class="mv-body">
+        <div class="mv-title">Seniortreff i kirker og lokalmiljø</div>
+        <div class="mv-desc">Kaffe, foredrag og lett underholdning. Finnes i de fleste bydeler – lav terskel, ingen påmelding.</div>
+        <div class="mv-where">📍 Din nærmeste kirke eller menighetshus</div>
+      </div>
+    </div>
+
+    <div class="modal-tips">
+      <div class="modal-tips-title">🔧 Modell for en aktiv hverdag – 4 elementer per uke</div>
+      <ul>
+        <li><strong>Bevegelse (2–3 ganger):</strong> tur, svømming eller trening</li>
+        <li><strong>Møteplass (1–2 ganger):</strong> seniorsenter, kafé eller gruppe</li>
+        <li><strong>Mental stimulans (1 gang):</strong> foredrag, lesing eller kurs</li>
+        <li><strong>Mening (valgfritt, sterkt anbefalt):</strong> frivillig arbeid eller besøksvenn</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ MODAL: Uteliv 18+ -->
+<div class="modal-overlay" id="modal-uteliv18" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">🌙 Utesteder Bergen – 18 til 20 år</div>
+        <div class="modal-sub">8 steder med 18+ mulighet · Bergen sentrum</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('uteliv18')">✕</button>
+    </div>
+
+    <div class="modal-section-label">🔥 Klubb / Fest</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Klubb</span>
+      <div class="mv-body">
+        <div class="mv-title">Bryggen Nightclub – 18+ kvelder</div>
+        <div class="mv-desc">En av få rene klubber med 18-årsgrense. Dansegulv, DJ og ordentlig uteliv. Sjekk egne 18+ kvelder – typisk fredag.</div>
+        <div class="mv-where">📍 Bryggen 45 · Tlf +47 55 96 15 00</div>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🎸 Kultur / Konsert</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Konsert</span>
+      <div class="mv-body">
+        <div class="mv-title">Hulen – rock og konsert</div>
+        <div class="mv-desc">Ikonisk rockeklubb og konsertscene under bakken. 18+ på de fleste arrangementer. Mer konsert enn danseklubb.</div>
+        <div class="mv-where">📍 Olaf Ryes vei 48</div>
+        <a href="https://www.hulen.no/" target="_blank" rel="noopener" class="mv-link">Se program på hulen.no ↗</a>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Studentbar</span>
+      <div class="mv-body">
+        <div class="mv-title">Kvarteret – studenthus</div>
+        <div class="mv-desc">Bar, konserter og dans for studenter. 18+ tilgjengelig. Uformelt og rimelig – beste alternativet hvis du er student.</div>
+        <div class="mv-where">📍 Olaf Ryes vei 48</div>
+        <a href="https://kvarteret.no/" target="_blank" rel="noopener" class="mv-link">Se hva som skjer på kvarteret.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🍺 Barer (18+ mulig)</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Bar</span>
+      <div class="mv-body">
+        <div class="mv-title">Fotballpuben – klassisk fallback</div>
+        <div class="mv-desc">Sport, øl og enkel stemning. Lettere å komme inn tidlig på kvelden. Bra alternativ for under 20.</div>
+        <div class="mv-where">📍 Vaskerelven 1 · Tlf +47 55 33 66 66</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Bar</span>
+      <div class="mv-body">
+        <div class="mv-title">Folk & Røvere – sosial pub</div>
+        <div class="mv-desc">Folksom og sosial pub med bred gjestekrets. Kan funke tidlig kveld for under 20.</div>
+        <div class="mv-where">📍 Sparebanksgaten 4 · Tlf +47 57 00 14 99</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Bar</span>
+      <div class="mv-body">
+        <div class="mv-title">Vinyl – Plater & øl</div>
+        <div class="mv-desc">Chill stemning med musikkfokus. Mer henging enn fest – hyggelig og romslig for yngre gjester.</div>
+        <div class="mv-where">📍 Kong Oscars gate 8</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Bar</span>
+      <div class="mv-body">
+        <div class="mv-title">Biskopen – rolig bar</div>
+        <div class="mv-desc">Litt roligere atmosfære. Kan slippe inn yngre gjester tidlig på kvelden.</div>
+        <div class="mv-where">📍 Neumanns gate 18 · Tlf +47 47 27 82 42</div>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🍏 Ny trend</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Siderbar</span>
+      <div class="mv-body">
+        <div class="mv-title">Siderbar Bergen – lavterskel og nytt</div>
+        <div class="mv-desc">Fokus på norsk sider fra Hardanger. Chill café/bar-vibe. Bra sjanse å komme inn som 18–19, passer godt den yngre drikkekulturen.</div>
+        <div class="mv-where">📍 Kong Oscars gate 11 · Tlf +47 56 55 50 00</div>
+        <a href="https://www.siderbar.no/" target="_blank" rel="noopener" class="mv-link">Besøk siderbar.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-tips">
+      <div class="modal-tips-title">💡 Strategi for 18–20 i Bergen</div>
+      <ul>
+        <li>Gå ut <strong>tidlig</strong> – før kl. 22 er terskelen lavest</li>
+        <li>Sjekk <strong>arrangementet</strong>, ikke bare stedet – 18+ events varierer</li>
+        <li>Bruk <strong>studentsteder</strong> (Hulen, Kvarteret) hvis du er student</li>
+        <li>Følg med på <strong>pop-up 18+ events</strong> – annonseres ofte kort tid i forveien</li>
+        <li>Mange steder går fra 18 → 20-grense etter kl. 22–23</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════ MODAL: ØVINGSSAL -->
+<div class="modal-overlay" id="modal-ovingssal" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">🎶 Åpen øvingssal – Kulturhuset i Bergen</div>
+        <div class="modal-sub">Musikk · Dans · Performance · Drop-in · Gratis</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('ovingssal')">✕</button>
+    </div>
+
+    <div class="modal-section-label">🎯 Konsept</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Drop-in</span>
+      <div class="mv-body">
+        <div class="mv-title">Lavterskel, selvorganisert øving i profesjonelt rom</div>
+        <div class="mv-desc">Du møter opp og bruker tilgjengelig utstyr og rom – uten bookingstruktur som i studio. En kreativ møteplass der du øver side om side med andre utøvere.</div>
+        <div class="mv-where">📍 Kulturhuset Bergen, Vaskerelven 8</div>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🥁 Hva du får tilgang til</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Utstyr</span>
+      <div class="mv-body">
+        <div class="mv-title">Trommer og perkusjon</div>
+        <div class="mv-desc">Bekreftet tilgjengelig på stedet. Kom og spill – ingen forhåndsreservasjon nødvendig.</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Rom</span>
+      <div class="mv-body">
+        <div class="mv-title">Åpen gulvflate</div>
+        <div class="mv-desc">Egnet for musikk, dans og performance. Uformell scene-testing og idéutprøving før publikum.</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-sosialt">Miljø</span>
+      <div class="mv-body">
+        <div class="mv-title">Sosial setting</div>
+        <div class="mv-desc">Ofte flere utøvere til stede samtidig – jamming, nettverksbygging og tilfeldige samarbeid skjer naturlig her.</div>
+      </div>
+    </div>
+
+    <div class="modal-section-label">👥 Typisk bruk</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Musikere</span>
+      <div class="mv-body">
+        <div class="mv-title">Jam, rytmetrening og soloøving</div>
+        <div class="mv-desc">Perfekt for å holde formen, teste nye låter eller bare spille med andre uten presset av et formelt studiobesøk.</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Dansere / Performere</span>
+      <div class="mv-body">
+        <div class="mv-title">Bevegelse og improvisasjon</div>
+        <div class="mv-desc">Bruk gulvflaten til bevegelsesøving, koreografi-utkast eller fri improvisasjon i et åpent og ikke-dømmende miljø.</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Kreative</span>
+      <div class="mv-body">
+        <div class="mv-title">Teste konsepter før publikum</div>
+        <div class="mv-desc">Bruk rommet til pre-produksjon og idéutprøving – før du investerer i studio- eller scenetid andre steder.</div>
+      </div>
+    </div>
+
+    <div class="modal-section-label">⚡ Operativ vurdering</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-sosialt">Styrke</span>
+      <div class="mv-body">
+        <div class="mv-title">Ingen terskel</div>
+        <div class="mv-desc">Gratis eller lav kostnad, drop-in – du trenger ikke søke, vente på godkjenning eller betale for studio.</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-okonomi">Svakhet</span>
+      <div class="mv-body">
+        <div class="mv-title">Uforutsigbar kapasitet</div>
+        <div class="mv-desc">Utstyrskvalitet og tilgjengelighet varierer. Dette er ikke et stille øvingsrom – det fungerer som en kreativ møteplass, ikke et isolert studio.</div>
+      </div>
+    </div>
+
+    <div class="modal-tips">
+      <div class="modal-tips-title">💡 Praktisk strategi – få mest ut av det</div>
+      <ul>
+        <li><strong>Kom tidlig</strong> og ha en klar øvingsintensjon – best effekt med fokus</li>
+        <li>Bruk det som <strong>pre-produksjon</strong>, ikke finpuss av ferdig materiale</li>
+        <li>Kombiner gjerne med <strong>konsert eller arrangement</strong> samme kveld på Kulturhuset</li>
+        <li><strong>Snakk med andre</strong> som er der – ofte inngang til lokale musikk- og dansmiljøer</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ MODAL: BADEPLASSER -->
+<div class="modal-overlay" id="modal-badeplasser" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">🌊 Gratis utebad &amp; badeplasser – Bergen 2026</div>
+        <div class="modal-sub">Sjøbad · Naturlige badeplasser · Gratis hele sommeren</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('badeplasser')">✕</button>
+    </div>
+
+    <div class="modal-tips" style="margin-bottom:20px;">
+      <div class="modal-tips-title">💡 Generelt</div>
+      <ul>
+        <li>Alle stedene er <strong>gratis</strong> og åpne hele sommeren</li>
+        <li><strong>Ingen badevakt</strong> – bading skjer på eget ansvar</li>
+        <li>De fleste har brygger, badestiger og/eller stupebrett</li>
+        <li>Mange har enkel infrastruktur: benker, noen steder toalett</li>
+      </ul>
+    </div>
+
+    <div class="modal-section-label">🏙️ Bynære badeplasser</div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Sjøbad</span>
+      <div class="mv-body">
+        <div class="mv-title">Nordnesparken badeplass &amp; Ballastbryggen</div>
+        <div class="mv-desc">To små svømmeområder i Nordnesparken rett ved sentrum. Ideelt for en rask dukkert etter jobb eller en sommerkveld i byen.</div>
+        <div class="mv-where">📍 Nordnesparken, Bergen sentrum</div>
+      </div>
+    </div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Sjøbad</span>
+      <div class="mv-body">
+        <div class="mv-title">Sydnes Sjøbad</div>
+        <div class="mv-desc">Utendørs sjøbad ved Jekteviken. Godt egnet for bynær bading – populært blant bergensere som vil svømme uten å reise langt.</div>
+        <div class="mv-where">📍 Jekteviken, Sydnes</div>
+      </div>
+    </div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Sjøbad</span>
+      <div class="mv-body">
+        <div class="mv-title">Sandviken Sjøbad</div>
+        <div class="mv-desc">Ubemannet sjøbad med brygger, badebøyer og stupebrett. Rolig og fin atmosfære i det historiske Sandviken-området.</div>
+        <div class="mv-where">📍 Sandviken</div>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🌿 Litt utenfor sentrum</div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Badeplass</span>
+      <div class="mv-body">
+        <div class="mv-title">Helleneset</div>
+        <div class="mv-desc">Populær badeplass med klipper, brygge og flotte svømmedeler. Mye brukt av lokale – ta med niste og nyt utsikten.</div>
+        <div class="mv-where">📍 Helleneset, Bergen</div>
+      </div>
+    </div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Badeplass</span>
+      <div class="mv-body">
+        <div class="mv-title">Krohnegården badeplass</div>
+        <div class="mv-desc">Tilrettelagt badeområde med plass til grilling og soling. Familievennlig og rolig – fin for en hel dag ute.</div>
+        <div class="mv-where">📍 Krohnegården, Bergen</div>
+      </div>
+    </div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Badeplass</span>
+      <div class="mv-body">
+        <div class="mv-title">Tennebekken badeplass</div>
+        <div class="mv-desc">Badeplass i Nipedalen-området – fin for en lokal svømmetur uten folkemasser. Stille og naturskjønt.</div>
+        <div class="mv-where">📍 Nipedalen, Bergen</div>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🗺️ Lenger ut – vel verdt turen</div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Badeplass</span>
+      <div class="mv-body">
+        <div class="mv-title">Våganeset badeplass</div>
+        <div class="mv-desc">Rolig sted litt lenger ute fra sentrum. Godt egnet for de som vil unngå folkemengder og oppleve en mer uforstyrret badeopplevelse.</div>
+        <div class="mv-where">📍 Våganeset, Bergen</div>
+      </div>
+    </div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Badeplass</span>
+      <div class="mv-body">
+        <div class="mv-title">Sageneset badeplass</div>
+        <div class="mv-desc">Hyggelig badeplass i Fanabygda-området. Lokal favoritt med fin natur rundt.</div>
+        <div class="mv-where">📍 Fanabygda, Bergen</div>
+      </div>
+    </div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Strand</span>
+      <div class="mv-body">
+        <div class="mv-title">Kyrkjetangen Beach</div>
+        <div class="mv-desc">Strandområde med svømmeområde ved Nordåsvannet. Mer strand-følelse enn de andre – bra for barn og familier.</div>
+        <div class="mv-where">📍 Nordåsvannet, Bergen</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+/* ══════════════════════════════════════════════════
+   DET SKJULTE BERGEN – kategorifilter
+   ══════════════════════════════════════════════════ */
+(function () {
+  var filters = document.querySelectorAll('#smau-filters .smau-filter');
+  var cards   = document.querySelectorAll('#smau-grid .smau-card');
+  var hint    = document.getElementById('smau-hint');
+  var count   = document.getElementById('smau-count');
+  var active  = null; // ingenting valgt ved oppstart
+
+  function showHint(show) {
+    if (hint) hint.style.display = show ? 'block' : 'none';
+  }
+
+  filters.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var cat = btn.getAttribute('data-filter');
+
+      // Klikk på samme filter igjen → nullstill alt
+      if (btn === active) {
+        btn.classList.remove('active');
+        active = null;
+        cards.forEach(function (c) { c.classList.add('hidden-card'); });
+        if (count) count.textContent = '';
+        showHint(true);
+        return;
+      }
+
+      filters.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      active = btn;
+      showHint(false);
+
+      var visible = 0;
+      cards.forEach(function (card) {
+        if (cat === 'alle' || card.getAttribute('data-cat') === cat) {
+          card.classList.remove('hidden-card');
+          visible++;
+        } else {
+          card.classList.add('hidden-card');
+        }
+      });
+      if (count) count.textContent = visible + ' tilbud';
+    });
+  });
+})();
+
+/* ══════════════════════════════════════════════════
+   I DAG I BERGEN – live RSS via rss2json.com
+   ══════════════════════════════════════════════════ */
+(function () {
+  /* -- Dynamisk dato-chip -- */
+  const chip = document.getElementById('today-date-chip');
+  const now  = new Date();
+  const DAYS   = ['Søndag','Mandag','Tirsdag','Onsdag','Torsdag','Fredag','Lørdag'];
+  const MONTHS = ['januar','februar','mars','april','mai','juni','juli',
+                  'august','september','oktober','november','desember'];
+  if (chip) chip.textContent =
+    DAYS[now.getDay()] + ' ' + now.getDate() + '. ' + MONTHS[now.getMonth()];
+
+  /* -- Feed-konfig -- */
+  const FEEDS = [
+    { rss: 'https://www.bt.no/rss.xml',  label: 'Bergens Tidende', href: 'https://www.bt.no'  },
+    { rss: 'https://www.ba.no/rss.xml',  label: 'Bergensavisen',   href: 'https://www.ba.no'  },
+  ];
+  const API_BASE = 'https://api.rss2json.com/v1/api.json?count=6&rss_url=';
+  const container = document.getElementById('today-feed');
+  if (!container) return;
+
+  /* -- Skeleton-animasjon mens vi henter -- */
+  container.innerHTML = Array(6).fill(
+    '<div class="ev ev-skel">' +
+      '<div class="ev-skel-line tall"></div>' +
+      '<div class="ev-skel-line"></div>' +
+      '<div class="ev-skel-line short"></div>' +
+    '</div>'
+  ).join('');
+
+  /* -- Hjelpefunksjon: strip HTML-tags -- */
+  function strip(html) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html || '';
+    return (tmp.textContent || tmp.innerText || '').trim();
+  }
+
+  /* -- Render artikler -- */
+  function renderItems(items, feedLabel) {
+    if (!items || !items.length) { renderFallback(); return; }
+    container.innerHTML = items.slice(0, 6).map(function (item) {
+      const pub  = item.pubDate ? new Date(item.pubDate) : null;
+      const time = pub
+        ? pub.toLocaleTimeString('no-NO', { hour: '2-digit', minute: '2-digit' })
+        : '';
+      const desc = strip(item.description).substring(0, 100) + (strip(item.description).length > 100 ? '…' : '');
+      const img  = item.thumbnail || item.enclosure?.link || '';
+      return (
+        '<div class="ev">' +
+          (img ? '<img src="' + img + '" alt="" style="width:100%;height:90px;object-fit:cover;border-radius:6px;margin-bottom:10px;">' : '') +
+          '<div class="ev-source">' + (time ? time + ' · ' : '') + feedLabel + '</div>' +
+          '<h4><a href="' + item.link + '" target="_blank" rel="noopener" class="ev-title-link">' + item.title + '</a></h4>' +
+          '<p>' + desc + '</p>' +
+        '</div>'
+      );
+    }).join('');
+  }
+
+  /* -- Fallback hvis begge feeds feiler -- */
+  function renderFallback() {
+    container.innerHTML =
+      '<div class="ev ev-fallback">' +
+        '<h4>📰 Hva skjer i Bergen i dag?</h4>' +
+        '<p>Besøk lokalavisene direkte for siste nytt og arrangementer.</p>' +
+        '<div class="ev-links">' +
+          '<a href="https://www.bt.no" target="_blank" rel="noopener">bt.no ↗</a>' +
+          '<a href="https://www.ba.no" target="_blank" rel="noopener">ba.no ↗</a>' +
+          '<a href="https://www.visitbergen.com/hva-skjer" target="_blank" rel="noopener">visitBergen ↗</a>' +
+          '<a href="https://www.bergen.kommune.no/hvaskjer" target="_blank" rel="noopener">Bergen kommune ↗</a>' +
+        '</div>' +
+      '</div>';
+  }
+
+  /* -- Hent primær feed, fallback til sekundær -- */
+  function tryFeed(index) {
+    if (index >= FEEDS.length) { renderFallback(); return; }
+    const feed = FEEDS[index];
+    fetch(API_BASE + encodeURIComponent(feed.rss))
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.status === 'ok' && data.items && data.items.length) {
+          renderItems(data.items, feed.label);
+          /* oppdater "Se alle"-lenken */
+          var moreLink = document.querySelector('.feed-more');
+          if (moreLink) { moreLink.href = feed.href; moreLink.textContent = 'Se alle nyheter på ' + feed.label + ' ↗'; }
+          var feedLabel = document.querySelector('.feed-label');
+          if (feedLabel) feedLabel.textContent = 'Siste fra ' + feed.label;
+        } else {
+          tryFeed(index + 1);
+        }
+      })
+      .catch(function () { tryFeed(index + 1); });
+  }
+
+  tryFeed(0);
+})();
+
+/* ══════════════════════════════════════════════════ */
+function openModal(id) {
+  document.getElementById('modal-' + id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById('modal-' + id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+function handleOverlayClick(e) {
+  if (e.target === e.currentTarget) closeModal(e.currentTarget.id.replace('modal-', ''));
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+});
+</script>
+</body>
+</html>
