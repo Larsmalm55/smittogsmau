@@ -966,6 +966,7 @@
       <button class="smau-filter" data-filter="mat">🍽️ Mat &amp; Drikke</button>
       <button class="smau-filter" data-filter="kreativitet">🎨 Kreativitet</button>
       <button class="smau-filter" data-filter="sosialt">🤝 Sosialt &amp; Hjelp</button>
+      <button class="smau-filter" data-filter="opplevelser">🏛️ Severdigheter</button>
     </div>
 
     <div class="smau-grid" id="smau-grid">
@@ -1049,6 +1050,20 @@
         </div>
         <div class="sc-where">📍 Bergen bibliotek · Onsdager kl 17</div>
         <a href="https://www4.uib.no/for-studenter/livet-som-student/sprakkafe" target="_blank" rel="noopener">Se tidspunkt på uib.no →</a>
+      </div>
+
+      <div class="smau-card hidden-card" data-cat="opplevelser">
+        <div class="sc-eye">Bergen på en dag</div>
+        <h3>🏛️ Severdigheter i Bergen</h3>
+        <p>Fra Fløyen til Bryggen – de viktigste severdighetene i Bergen samlet. Natur, historie, kultur og familieopplevelser.</p>
+        <div class="sc-tags">
+          <span class="sc-tag">Natur</span>
+          <span class="sc-tag">Historie</span>
+          <span class="sc-tag">Familie</span>
+          <span class="sc-tag">10+ steder</span>
+        </div>
+        <div class="sc-where">📍 Bergen – sentrum og omegn</div>
+        <button class="sc-modal-btn" onclick="openModal('severdigheter')">Se alle severdigheter →</button>
       </div>
 
       <div class="smau-card hidden-card" data-cat="sosialt">
@@ -2671,6 +2686,125 @@ bkCalc();
   </div>
 </div>
 
+
+<!-- ══════════════════════════ MODAL: SEVERDIGHETER -->
+<div class="modal-overlay" id="modal-severdigheter" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">🏛️ Severdigheter i Bergen</div>
+        <div class="modal-sub">Natur · Historie · Kultur · Familie</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('severdigheter')">✕</button>
+    </div>
+
+    <div class="modal-section-label">🌿 Natur &amp; Utsikt</div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Fjell</span>
+      <div class="mv-body">
+        <div class="mv-title">Fløyen – Bergens mest kjente utsiktspunkt</div>
+        <div class="mv-desc">Ta Fløibanen opp eller gå stien på 45 min. Panoramautsikt over Bergen, fjorden og øyene. Café på toppen. Gratis å gå opp – gondol koster ca. 175 kr.</div>
+        <div class="mv-where">📍 Vetrlidsallmenning 23 · Sentrum</div>
+        <a href="https://www.floibanen.no/" target="_blank" rel="noopener" class="mv-link">floibanen.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Fjell</span>
+      <div class="mv-body">
+        <div class="mv-title">Ulriken – Bergens høyeste byfjell (643 moh.)</div>
+        <div class="mv-desc">Norges bratteste kabelbane tar deg opp på 7 min. Spektakulær utsikt over hele Bergensregionen. Restauranten Ulriken643 på toppen. Gondol ca. 235 kr.</div>
+        <div class="mv-where">📍 Haukelandsbakken 40 · Sør for sentrum</div>
+        <a href="https://ulriken643.no/" target="_blank" rel="noopener" class="mv-link">ulriken643.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Botanisk hage</span>
+      <div class="mv-body">
+        <div class="mv-title">Arboretet – botanisk hage ved Milde</div>
+        <div class="mv-desc">Én av Nordens største botaniske hager med over 3 000 tresorter. Gratis inngang, åpent hele året. Særlig vakkert om høsten og våren. Perfekt for en rolig søndag.</div>
+        <div class="mv-where">📍 Mildeveien 240 · Fana (20 min fra sentrum)</div>
+        <a href="https://www.uib.no/arboretet" target="_blank" rel="noopener" class="mv-link">uib.no/arboretet ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🏰 Historie &amp; Arv</div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">UNESCO</span>
+      <div class="mv-body">
+        <div class="mv-title">Bryggen – verdensarv fra hansatiden</div>
+        <div class="mv-desc">Bergens mest ikoniske landemerke. Fargerike trehus fra 1300-tallet, nå på UNESCOs verdensarvliste. Gratis å vandre rundt – museer og butikker inne i bygningene.</div>
+        <div class="mv-where">📍 Bryggen, Bergen sentrum</div>
+        <a href="https://stiftelsenbryggen.no/" target="_blank" rel="noopener" class="mv-link">stiftelsenbryggen.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Festning</span>
+      <div class="mv-body">
+        <div class="mv-title">Bergenhus festning – middelalderfestning i sentrum</div>
+        <div class="mv-desc">Én av Norges best bevarte middelalderfestninger med Håkonshallen og Rosenkrantztårnet. Gratis å gå rundt på området – historisk og vakkert beliggende ved Vågen.</div>
+        <div class="mv-where">📍 Bergenhus, Bergen sentrum</div>
+        <a href="https://forsvarsbygg.no/festningene/festningene/bergenhus-festning/" target="_blank" rel="noopener" class="mv-link">Se mer ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Kongelig</span>
+      <div class="mv-body">
+        <div class="mv-title">Gamlehaugen – kongelig residens i Bergen</div>
+        <div class="mv-desc">Kongens offisielle residens i Bergen, omgitt av vakker park ned mot Nordåsvannet. Parken er åpen for alle og gratis. Selve bygningen åpner kun ved spesielle arrangementer.</div>
+        <div class="mv-where">📍 Gamlehaugveien 10 · Fana</div>
+        <a href="https://www.kongehuset.no/gamlehaugen" target="_blank" rel="noopener" class="mv-link">kongehuset.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🐠 Familie &amp; Opplevelse</div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-sosialt">Familie</span>
+      <div class="mv-body">
+        <div class="mv-title">Akvariet i Bergen</div>
+        <div class="mv-desc">Norges største akvarium med pingviner, sel, haier og tropiske fisker. Perfekt for barn og familier. Åpent daglig. Billetter fra ca. 200 kr for barn, 350 kr for voksne.</div>
+        <div class="mv-where">📍 Nordnesbakken 4 · Nordnes</div>
+        <a href="https://www.akvariet.no/" target="_blank" rel="noopener" class="mv-link">akvariet.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Museum</span>
+      <div class="mv-body">
+        <div class="mv-title">Trollmuseet Bergen</div>
+        <div class="mv-desc">Norges første interaktive trollmuseum – magisk opplevelse for alle aldre med dypdykk i norsk trollmytologi og folklore.</div>
+        <div class="mv-where">📍 Bergen sentrum</div>
+        <a href="https://bergen.trollmuseum.no/" target="_blank" rel="noopener" class="mv-link">bergen.trollmuseum.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Kunstmuseum</span>
+      <div class="mv-body">
+        <div class="mv-title">KODE – Nordens største kunstmuseum</div>
+        <div class="mv-desc">Fire bygg med Munch, Picasso, Klee og norsk kunsthistorie langs Lille Lungegårdsvannet. Alltid skiftende utstillinger.</div>
+        <div class="mv-where">📍 Rasmus Meyers allé · Bergen sentrum</div>
+        <a href="https://www.kodebergen.no/" target="_blank" rel="noopener" class="mv-link">kodebergen.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-tips">
+      <div class="modal-tips-title">💡 Tips – Bergen på en dag</div>
+      <ul>
+        <li>Start på <strong>Bryggen</strong> tidlig morgen – færrest folk og best lys til bilder</li>
+        <li>Ta <strong>Fløibanen</strong> opp og gå ned – spar penger og se mer av naturen</li>
+        <li>Kombiner <strong>Akvariet + Nordnesparken</strong> – begge ligger på Nordnes-halvøyen</li>
+        <li><strong>Arboretet</strong> og <strong>Gamlehaugen</strong> er gratis og bare 20 min fra sentrum</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 <!-- ══════════════════════════ MODAL: ØVINGSSAL -->
 <div class="modal-overlay" id="modal-ovingssal" onclick="handleOverlayClick(event)">
