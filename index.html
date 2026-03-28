@@ -410,6 +410,7 @@
     .b-okonomi { background: var(--sand);        color: #5a4a2a; }
     .b-kultur  { background: #fdf3e3;           color: #7a4f10; }
     .b-nattliv { background: #ede9f6;           color: #4a2d7a; }
+    .b-mat     { background: #fff0e6;           color: #8a3a00; }
     .oc-title { font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: var(--text); }
     .oc-desc  { font-size: .84rem; color: var(--muted); line-height: 1.57; margin-bottom: 14px; flex: 1; }
     .oc-meta  { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
@@ -1064,6 +1065,20 @@
         </div>
         <div class="sc-where">📍 Bergen – sentrum og omegn</div>
         <button class="sc-modal-btn" onclick="openModal('severdigheter')">Se alle severdigheter →</button>
+      </div>
+
+      <div class="smau-card hidden-card" data-cat="opplevelser">
+        <div class="sc-eye">Få vet om disse</div>
+        <h3>💎 Bortgjemte skatter i Bergen</h3>
+        <p>Hemmelige barer, krigsrom, lepramuseum og stavkirke – steder de fleste bergensere ikke har besøkt. Autentisk og rolig.</p>
+        <div class="sc-tags">
+          <span class="sc-tag">Lite kjent</span>
+          <span class="sc-tag">Autentisk</span>
+          <span class="sc-tag">Historie</span>
+          <span class="sc-tag">Natur</span>
+        </div>
+        <div class="sc-where">📍 Bergen sentrum og omegn</div>
+        <button class="sc-modal-btn" onclick="openModal('skatter')">Se de skjulte stedene →</button>
       </div>
 
       <div class="smau-card hidden-card" data-cat="sosialt">
@@ -2428,6 +2443,112 @@ bkCalc();
       </div>
     </div>
 
+    <div class="modal-section-label">🍽️ Matbarer i Bergen</div>
+    <div class="modal-venue">
+      <span class="mv-badge b-mat">Matbar</span>
+      <div class="mv-body">
+        <div class="mv-title">Bare Vin og Matbar</div>
+        <div class="mv-desc">Vinbar med enkle, gode retter i hyggelige omgivelser midt i sentrum.</div>
+        <div class="mv-where">📍 Torgallmenningen 2</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-mat">Matbar</span>
+      <div class="mv-body">
+        <div class="mv-title">Bryggeriet</div>
+        <div class="mv-desc">Populært sted på Zachariasbryggen med mat, øl og utsikt over Vågen.</div>
+        <div class="mv-where">📍 Zachariasbryggen, Torget 2 (2. etasje)</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-mat">Matbar</span>
+      <div class="mv-body">
+        <div class="mv-title">Café Opera</div>
+        <div class="mv-desc">Klassisk bergenskafé med mat og drikke i et avslappet miljø ved Engen.</div>
+        <div class="mv-where">📍 Engen 18</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-mat">Matbar</span>
+      <div class="mv-body">
+        <div class="mv-title">Dr. Wiesener</div>
+        <div class="mv-desc">Sjarmerende bar og matsted i Sandviken med et lokalt og laidback preg.</div>
+        <div class="mv-where">📍 Nye Sandviksveien 17A</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-mat">Matbar</span>
+      <div class="mv-body">
+        <div class="mv-title">Hem</div>
+        <div class="mv-desc">Moderne matbar i Teatergaten med god mat og koselig atmosfære.</div>
+        <div class="mv-where">📍 Teatergaten 14</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-mat">Matbar</span>
+      <div class="mv-body">
+        <div class="mv-title">Kafé Spesial</div>
+        <div class="mv-desc">Studentfavoritt på Nygårdshøyden – rimelig mat, god stemning og bred gjestekrets.</div>
+        <div class="mv-where">📍 Christies gate 13</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-mat">Matbar</span>
+      <div class="mv-body">
+        <div class="mv-title">Ferdinand på Engen</div>
+        <div class="mv-desc">Populær matbar med god meny og levende atmosfære på Engen.</div>
+        <div class="mv-where">📍 Engen 24</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-mat">Matbar</span>
+      <div class="mv-body">
+        <div class="mv-title">Royal Gourmetburger &amp; Gin</div>
+        <div class="mv-desc">Gourmetburgere og et bredt utvalg gin i Neumanns gate – bra for en god kveld ute.</div>
+        <div class="mv-where">📍 Neumanns gate 2a</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-mat">Matbar</span>
+      <div class="mv-body">
+        <div class="mv-title">Nedre Nygaard</div>
+        <div class="mv-desc">Nabolagsbaren på Nygårdshøyden – avslappet stemning og god mat i nærmiljøet.</div>
+        <div class="mv-where">📍 Nygårdsgaten 31</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-mat">Matbar</span>
+      <div class="mv-body">
+        <div class="mv-title">TempoTempo</div>
+        <div class="mv-desc">Trendy matbar ved Domkirken med fokus på smaksrike retter og god drikke.</div>
+        <div class="mv-where">📍 Domkirkegaten 6A</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-mat">Matbar</span>
+      <div class="mv-body">
+        <div class="mv-title">Ostra</div>
+        <div class="mv-desc">Intim og stemningsfull matbar på Solheim med fokus på kvalitetsmat.</div>
+        <div class="mv-where">📍 Solheimsgaten 3</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-mat">Matbar</span>
+      <div class="mv-body">
+        <div class="mv-title">Såpas</div>
+        <div class="mv-desc">Hyggelig matbar i Bankgaten – perfekt for en uformell middag eller aftensdrink.</div>
+        <div class="mv-where">📍 Bankgaten 8</div>
+      </div>
+    </div>
+    <div class="modal-venue">
+      <span class="mv-badge b-mat">Matbar</span>
+      <div class="mv-body">
+        <div class="mv-title">Verden i Bergen</div>
+        <div class="mv-desc">Verdensmat og drikke i sjarmerende Øvregaten – et lite verdenshjørne i Bergen.</div>
+        <div class="mv-where">📍 Øvregaten 12</div>
+      </div>
+    </div>
+
     <div class="modal-tips">
       <div class="modal-tips-title">💡 Tips for utelivet i Bergen</div>
       <ul>
@@ -2801,6 +2922,108 @@ bkCalc();
         <li>Ta <strong>Fløibanen</strong> opp og gå ned – spar penger og se mer av naturen</li>
         <li>Kombiner <strong>Akvariet + Nordnesparken</strong> – begge ligger på Nordnes-halvøyen</li>
         <li><strong>Arboretet</strong> og <strong>Gamlehaugen</strong> er gratis og bare 20 min fra sentrum</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ MODAL: BORTGJEMTE SKATTER -->
+<div class="modal-overlay" id="modal-skatter" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">💎 Bortgjemte skatter i Bergen</div>
+        <div class="modal-sub">Autentiske perler · Lite kjent · Rolig opplevelse</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('skatter')">✕</button>
+    </div>
+
+    <div class="modal-section-label">🏘️ Sentrum og nærområder</div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Bydel</span>
+      <div class="mv-body">
+        <div class="mv-title">Nordneshalvøya – smug, trehus og totem-pole</div>
+        <div class="mv-desc">Rolig boligområde med trange smug, fargerike trehus og historiske spor rett ved sentrum. Parken ved sjøen byr på fin utsikt – og en totem-pole som er en gave fra Bergen sin vennskapsby Seattle. Perfekt for en rolig spasertur.</div>
+        <div class="mv-where">📍 Nordnes, Bergen sentrum</div>
+      </div>
+    </div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Museum</span>
+      <div class="mv-body">
+        <div class="mv-title">Lepramuseet – St. Jørgens Hospital</div>
+        <div class="mv-desc">Et av Bergens minst besøkte museer, men ett av de sterkeste. Forteller historien om lepra i Norge fra et gammelt hospital med original atmosfære. Gir et unikt innblikk i byens medisinske fortid.</div>
+        <div class="mv-where">📍 Kong Oscars gate 59, Bergen</div>
+      </div>
+    </div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Hemmelig rom</span>
+      <div class="mv-body">
+        <div class="mv-title">Theta-museet – krigstidens minste museum</div>
+        <div class="mv-desc">Bergens minste museum – et hemmelig rom fra motstandsgruppen Theta under andre verdenskrig. Original radioutstyr og gjenstander fra okkupasjonstiden. Svært intimt og krever forhåndsavtale.</div>
+        <div class="mv-where">📍 Enhjørningsgården, Bryggen</div>
+      </div>
+    </div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Historisk</span>
+      <div class="mv-body">
+        <div class="mv-title">Gamle Bergen – trehusene utenfor museet</div>
+        <div class="mv-desc">Gå rundt i de trange gatene med gamle trehus uten å betale for selve museet. Området føles som en levende historisk bydel med færre folk enn i sentrum – særlig tidlig morgen.</div>
+        <div class="mv-where">📍 Nyhavn, Sandviken</div>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🍸 Skjulte barer</div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Hemmelig bar</span>
+      <div class="mv-body">
+        <div class="mv-title">Hemmelig bar – Charmante Skostredet Hotel</div>
+        <div class="mv-desc">En intim og elegant cocktailbar på øverste etasje i hotellet. Be om tilgang i resepsjonen – den er ikke annonsert. Rolig atmosfære og gode cocktails, langt unna turistmassene.</div>
+        <div class="mv-where">📍 Skostredet, Bergen sentrum</div>
+      </div>
+    </div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-nattliv">Studentbar</span>
+      <div class="mv-body">
+        <div class="mv-title">Hulen – bar og konsert i gammelt bombeshelter</div>
+        <div class="mv-desc">Studentdrevet bar og konsertsted innredet i et gammelt bombeskjul fra krigen under Nygårdshøyden. En av Norges eldste og mest legendariske studentbarer – autentisk og unik.</div>
+        <div class="mv-where">📍 Olaf Ryes vei 47, Nygårdshøyden</div>
+        <a href="https://www.hulen.no/" target="_blank" rel="noopener" class="mv-link">hulen.no ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-section-label">🌿 Natur litt utenfor sentrum</div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-fritid">Naturhytte</span>
+      <div class="mv-body">
+        <div class="mv-title">Tubakuba – kaninhull i skogen ved Fløyen</div>
+        <div class="mv-desc">En unik, moderne hytte formet som et kaninhull i skogen nær Fløyen. Designet for lek og opphold, med en annerledes naturopplevelse rett utenfor byen. Sjekk tilgjengelighet på forhånd.</div>
+        <div class="mv-where">📍 Fløyfjellet, Bergen</div>
+      </div>
+    </div>
+
+    <div class="modal-venue">
+      <span class="mv-badge b-kultur">Stavkirke</span>
+      <div class="mv-body">
+        <div class="mv-title">Fantoft Stavkirke – med dramatisk historie</div>
+        <div class="mv-desc">En rekonstruert stavkirke med en dramatisk historie knyttet til brannen i 1992. Ligger rolig til litt utenfor sentrum og er langt mindre besøkt enn de store attraksjonene. Et sterkt møte med norsk trearkitektur.</div>
+        <div class="mv-where">📍 Fantoftvegen 38 · 15 min fra sentrum</div>
+      </div>
+    </div>
+
+    <div class="modal-tips">
+      <div class="modal-tips-title">💡 Tips – få mest ut av de skjulte stedene</div>
+      <ul>
+        <li><strong>Theta-museet</strong> krever forhåndsavtale – ring eller sjekk åpningstider i forkant</li>
+        <li><strong>Nordnes</strong> er vakreste tidlig morgen eller sent ettermiddag når lyset er godt</li>
+        <li>Kombiner <strong>Lepramuseet + Gamle Bergen</strong> – begge tar 1–2 timer og er nær hverandre</li>
+        <li><strong>Tubakuba</strong> er et godt stoppested på vei opp til eller ned fra Fløyen</li>
       </ul>
     </div>
   </div>
